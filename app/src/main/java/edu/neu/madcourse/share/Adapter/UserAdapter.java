@@ -1,4 +1,4 @@
-package edu.neu.madcourse.share.adapters;
+package edu.neu.madcourse.share.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
