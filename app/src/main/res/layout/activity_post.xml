@@ -64,9 +64,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="Description"
+            android:hint="Please enter a title"
             android:maxLines="5"
-            android:id="@+id/description" />
+            android:id="@+id/Title" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="15dp"
+            android:gravity="top|left"
+            android:background="@drawable/custom_button"
+            android:hint="Content"
+            android:maxLines="5"
+            android:id="@+id/content" />
+
+
 
     </LinearLayout>
 
