@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -84,11 +85,19 @@ public class PostActivity extends AppCompatActivity {
         progressDialog.setMessage("Posting");
         progressDialog.show();
 
+        Log.d("Test", "uploadImage: " + imageUri);
         if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(
                     System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
+            // Test Code
+//            Log.d("Test", "uploadImage: " + fileReference);
+
             uploadTask = fileReference.putFile(imageUri);
+
+            // Test Code
+//            Log.d("Test", "uploadImage: " + uploadTask);
+
             uploadTask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {

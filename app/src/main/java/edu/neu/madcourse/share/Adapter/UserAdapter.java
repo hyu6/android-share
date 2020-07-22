@@ -28,6 +28,7 @@ import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
+// This class is for displaying the users inside the RecyclerView.
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
@@ -82,6 +83,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if (viewHolder.btn_follow.getText().toString().equals("follow")) {
+                    // Follow the user if the user being followed.
                     FirebaseDatabase.getInstance().getReference()
                             .child("Follow")
                             .child(firebaseUser.getUid())
@@ -95,6 +97,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                             .child(firebaseUser.getUid())
                             .setValue(true);
                 } else {
+                    // Unfollow the user if the user being followed.
                     FirebaseDatabase.getInstance().getReference()
                             .child("Follow")
                             .child(firebaseUser.getUid())
@@ -134,6 +137,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
+    // Check whether the current user is following other users.
     private void isFollowing(final String userid, final Button button) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Follow")

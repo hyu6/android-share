@@ -1,14 +1,13 @@
 package edu.neu.madcourse.share;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_profile:
                             // TODO: Don't know what this line is doing.
+                            // Actually storing a pair of Key and values.
                             SharedPreferences.Editor editor =  getSharedPreferences("PREFS", MODE_PRIVATE).edit();
                             editor.putString("profileid", FirebaseAuth.getInstance().getCurrentUser().getUid());
                             editor.apply();
