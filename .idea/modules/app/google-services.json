@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "576619876766-j9jan44pjv2gn5l9n3tf2mjg7uo5t1vg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.neu.madcourse.share",
+            "certificate_hash": "f0767f332e3a27fc4eda2486f7ae8bd066fba1e1"
+          }
+        },
+        {
           "client_id": "576619876766-0vl9o27db7424g383mstlaok5up8s7ig.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
