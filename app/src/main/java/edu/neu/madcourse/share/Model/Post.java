@@ -5,7 +5,7 @@ public class Post {
     private String postIMG;
     private String postContent;
     private String title;
-    private String author;
+    private String authorID;
 
     public Post(){
 
@@ -16,7 +16,7 @@ public class Post {
         this.postIMG = postIMG;
         this.postContent = postContent;
         this.title = title;
-        this.author = author;
+        this.authorID = author;
     }
 
     public String getPostID() {
@@ -51,11 +51,11 @@ public class Post {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthorID() {
+        return authorID;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorID(String author) {
+        this.authorID = author;
     }
 }

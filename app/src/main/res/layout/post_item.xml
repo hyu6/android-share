@@ -24,7 +24,7 @@
                 android:layout_width="40dp"
                 android:layout_height="32dp"
                 android:layout_margin="10dp"
-                android:id="@+id/image_profile"
+                android:id="@+id/author_profile"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
