@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,11 +23,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import edu.neu.madcourse.share.Adapter.CommentAdapter;
+import edu.neu.madcourse.share.Model.Comment;
 import edu.neu.madcourse.share.Model.User;
 
 public class CommentsActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private CommentAdapter commentAdapter;
+    private List<Comment> commentList;
 
     EditText addComment;
     ImageView imageProfile;
@@ -52,6 +62,14 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        commentList = new ArrayList<>();
+        commentAdapter = new CommentAdapter(this, commentList);
+        recyclerView.setAdapter(commentAdapter);
+
         addComment = findViewById(R.id.add_comment);
         imageProfile = findViewById(R.id.image_profile);
         post = findViewById(R.id.post);
@@ -74,6 +92,7 @@ public class CommentsActivity extends AppCompatActivity {
         });
 
         getImage();
+        readComments();
     }
 
     private void addComment() {
@@ -97,6 +116,29 @@ public class CommentsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 Glide.with(getApplicationContext()).load(user.getImageurl()).into(imageProfile);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void readComments() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Comments")
+                .child(postId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                commentList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Comment comment = snapshot.getValue(Comment.class);
+                    commentList.add(comment);
+                }
+
+                commentAdapter.notifyDataSetChanged();
             }
 
             @Override
