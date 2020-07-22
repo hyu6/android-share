@@ -30,6 +30,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
 
+import edu.neu.madcourse.share.Model.Post;
+
 public class PostActivity extends AppCompatActivity {
 
     Uri imageUri;
@@ -111,20 +113,23 @@ public class PostActivity extends AppCompatActivity {
 
                         String postid = reference.push().getKey();
 
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("postID", postid);
-                        hashMap.put("postIMG", myUrl);
-                        hashMap.put("title", title.getText().toString());
-                        hashMap.put("postContent", content.getText().toString());
-                        hashMap.put("authorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+//                        HashMap<String, Object> hashMap = new HashMap<>();
+//                        hashMap.put("postID", postid);
+//                        hashMap.put("postIMG", myUrl);
+//                        hashMap.put("title", title.getText().toString());
+//                        hashMap.put("postContent", content.getText().toString());
+//                        hashMap.put("authorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-//                        String postID;
-//                        String postIMG;
-//                        String postContent;
-//                        String title;
-//                        String authorID;
+                        Post newPost = new Post();
+                        newPost.setPostID(postid);
+                        newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        newPost.setPostContent(content.getText().toString());
+                        newPost.setPostIMG(myUrl);
+                        newPost.setTitle(title.getText().toString());
 
-                        reference.child(postid).setValue(hashMap);
+
+//                        reference.child(postid).setValue(hashMap);
+                        reference.child(postid).setValue(newPost);
 
                         progressDialog.dismiss();
 
