@@ -89,15 +89,17 @@ public class HomeFragment extends Fragment {
 
     private void getFollowing(){
         followings = new ArrayList<>();
+        final String curUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Follow")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(curUserID)
                 .child("following");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 followings.clear();
+                followings.add(curUserID);
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     followings.add(dataSnapshot.getKey());
                 }
