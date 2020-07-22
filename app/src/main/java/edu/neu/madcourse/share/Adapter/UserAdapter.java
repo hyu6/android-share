@@ -28,7 +28,6 @@ import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
-// This class is for displaying the users inside the RecyclerView.
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
@@ -54,15 +53,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         final User user = mUsers.get(position);
 
-        viewHolder.btn_follow.setVisibility(View.VISIBLE);
+        viewHolder.btnFollow.setVisibility(View.VISIBLE);
 
         viewHolder.username.setText(user.getUsername());
         viewHolder.fullname.setText(user.getFullname());
-        Glide.with(mContext).load(user.getImageurl()).into(viewHolder.image_profile);
-        isFollowing(user.getId(), viewHolder.btn_follow);
+        Glide.with(mContext).load(user.getImageurl()).into(viewHolder.imageProfile);
+        isFollowing(user.getId(), viewHolder.btnFollow);
 
         if (user.getId().equals(firebaseUser.getUid())) {
-            viewHolder.btn_follow.setVisibility(View.GONE);
+            viewHolder.btnFollow.setVisibility(View.GONE);
         }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,11 +78,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             }
         });
 
-        viewHolder.btn_follow.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (viewHolder.btn_follow.getText().toString().equals("follow")) {
-                    // Follow the user if the user being followed.
+                if (viewHolder.btnFollow.getText().toString().equals("follow")) {
                     FirebaseDatabase.getInstance().getReference()
                             .child("Follow")
                             .child(firebaseUser.getUid())
@@ -97,7 +95,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                             .child(firebaseUser.getUid())
                             .setValue(true);
                 } else {
-                    // Unfollow the user if the user being followed.
                     FirebaseDatabase.getInstance().getReference()
                             .child("Follow")
                             .child(firebaseUser.getUid())
@@ -124,20 +121,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public TextView username;
         public TextView fullname;
-        public CircleImageView image_profile;
-        public Button btn_follow;
+        public CircleImageView imageProfile;
+        public Button btnFollow;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.username);
             fullname = itemView.findViewById(R.id.fullname);
-            image_profile = itemView.findViewById(R.id.image_profile);
-            btn_follow = itemView.findViewById(R.id.btn_follow);
+            imageProfile = itemView.findViewById(R.id.image_profile);
+            btnFollow = itemView.findViewById(R.id.btn_follow);
         }
     }
 
-    // Check whether the current user is following other users.
     private void isFollowing(final String userid, final Button button) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Follow")

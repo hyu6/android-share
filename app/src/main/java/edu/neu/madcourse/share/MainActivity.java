@@ -32,8 +32,20 @@ public class MainActivity extends AppCompatActivity {
         // Set the bottomNavigation listener.
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+        Bundle intent = getIntent().getExtras();
+        if (intent != null) {
+            String publisher = intent.getString("publisherid");
+
+            SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+            editor.putString("profileid", publisher);
+            editor.apply();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ProfileFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new HomeFragment()).commit();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -58,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_profile:
                             // TODO: Don't know what this line is doing.
-                            // Actually storing a pair of Key and values.
-                            SharedPreferences.Editor editor =  getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                            SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
                             editor.putString("profileid", FirebaseAuth.getInstance().getCurrentUser().getUid());
                             editor.apply();
                             selectedFragment = new ProfileFragment();
