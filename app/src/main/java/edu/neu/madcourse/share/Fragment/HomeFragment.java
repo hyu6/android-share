@@ -92,8 +92,9 @@ public class HomeFragment extends Fragment {
                 followings.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     followings.add(snapshot.getKey());
-                    getPosts();
                 }
+
+                getPosts();
             }
 
             @Override
