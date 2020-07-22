@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 followings.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    followings.add(snapshot.getKey());
+                    followings.add(dataSnapshot.getKey());
                 }
 
                 getPosts();
