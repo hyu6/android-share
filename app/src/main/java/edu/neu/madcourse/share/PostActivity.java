@@ -39,7 +39,8 @@ public class PostActivity extends AppCompatActivity {
 
     ImageView close, image_added;
     TextView post;
-    EditText description;
+    EditText title;
+    EditText content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,8 @@ public class PostActivity extends AppCompatActivity {
         close = findViewById(R.id.close);
         image_added = findViewById(R.id.image_added);
         post = findViewById(R.id.post);
-        description = findViewById(R.id.description);
+        title = findViewById(R.id.Title);
+        content = findViewById(R.id.content);
 
         storageReference = FirebaseStorage.getInstance().getReference("posts");
 
@@ -110,10 +112,17 @@ public class PostActivity extends AppCompatActivity {
                         String postid = reference.push().getKey();
 
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("postid", postid);
-                        hashMap.put("postimage", myUrl);
-                        hashMap.put("description", description.getText().toString());
-                        hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        hashMap.put("postID", postid);
+                        hashMap.put("postIMG", myUrl);
+                        hashMap.put("title", title.getText().toString());
+                        hashMap.put("postContent", content.getText().toString());
+                        hashMap.put("authorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+//                        String postID;
+//                        String postIMG;
+//                        String postContent;
+//                        String title;
+//                        String authorID;
 
                         reference.child(postid).setValue(hashMap);
 
