@@ -1,6 +1,7 @@
 package edu.neu.madcourse.share.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import edu.neu.madcourse.share.CommentsActivity;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
@@ -36,6 +38,9 @@ public class PostDetailFragment extends Fragment {
     private ImageView post_img;
 
     private Button back_button;
+    private ImageView like;
+    private ImageView comment;
+    private ImageView favorite;
 
 
     @Override
@@ -51,7 +56,16 @@ public class PostDetailFragment extends Fragment {
         author_name = view.findViewById(R.id.username);
         post_img = view.findViewById(R.id.post_img);
 
-
+        comment = view.findViewById(R.id.comment);
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CommentsActivity.class);
+                intent.putExtra("postID", postID);
+                intent.putExtra("authorID", mpost.getAuthorID());
+                startActivity(intent);
+            }
+        });
 
 
         getPost();

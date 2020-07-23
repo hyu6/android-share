@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,6 +71,9 @@ public class CommentsActivity extends AppCompatActivity {
         commentAdapter = new CommentAdapter(this, commentList);
         recyclerView.setAdapter(commentAdapter);
 
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(divider);
+
         addComment = findViewById(R.id.add_comment);
         imageProfile = findViewById(R.id.image_profile);
         post = findViewById(R.id.post);
@@ -77,8 +81,8 @@ public class CommentsActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Intent intent = getIntent();
-        postId = intent.getStringExtra("postid");
-        publisherId = intent.getStringExtra("publisherid");
+        postId = intent.getStringExtra("postID");
+        publisherId = intent.getStringExtra("authorID");
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
