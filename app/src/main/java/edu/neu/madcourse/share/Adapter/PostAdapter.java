@@ -29,14 +29,13 @@ import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public Context context;
     public List<Post> posts;
 
-
     private FirebaseUser firebaseUser;
 
-    public PostAdapter(Context context, List<Post> posts){
+    public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
     }
@@ -75,11 +74,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView post_title, username;
         public ImageView author_profile;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
 
             post_title = itemView.findViewById(R.id.post_title);
@@ -90,7 +89,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         }
     }
 
-    private void authorInfo(final ImageView authorProfile, final TextView username, String userId){
+    private void authorInfo(final ImageView authorProfile, final TextView username, String userId) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         ref.addValueEventListener(new ValueEventListener() {
