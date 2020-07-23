@@ -1,5 +1,6 @@
 package edu.neu.madcourse.share.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,7 @@ import java.util.List;
 
 import edu.neu.madcourse.share.Adapter.PostAdapter;
 import edu.neu.madcourse.share.Model.Post;
+import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
 
 public class HomeFragment extends Fragment {
@@ -33,6 +36,7 @@ public class HomeFragment extends Fragment {
     private PostAdapter postAdapter;
     private List<Post> posts;
     private List<String> followings;
+    private ImageView create;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +59,13 @@ public class HomeFragment extends Fragment {
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
         getFollowing();
+
+        create = view.findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
 
         // Inflate the layout for this fragment
@@ -89,15 +100,17 @@ public class HomeFragment extends Fragment {
 
     private void getFollowing(){
         followings = new ArrayList<>();
+        final String curUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Follow")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(curUserID)
                 .child("following");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 followings.clear();
+                followings.add(curUserID);
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     followings.add(dataSnapshot.getKey());
                 }

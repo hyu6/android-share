@@ -122,12 +122,6 @@ public class PostActivity extends AppCompatActivity {
 
                         String postid = reference.push().getKey();
 
-//                        HashMap<String, Object> hashMap = new HashMap<>();
-//                        hashMap.put("postID", postid);
-//                        hashMap.put("postIMG", myUrl);
-//                        hashMap.put("title", title.getText().toString());
-//                        hashMap.put("postContent", content.getText().toString());
-//                        hashMap.put("authorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                         Post newPost = new Post();
                         newPost.setPostID(postid);
