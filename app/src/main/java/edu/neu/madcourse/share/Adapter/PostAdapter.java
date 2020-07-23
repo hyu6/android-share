@@ -1,7 +1,7 @@
 package edu.neu.madcourse.share.Adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import edu.neu.madcourse.share.Fragment.PostDetailFragment;
-import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
+import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -57,12 +56,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                editor.putString("postID", post.getPostID());
-                editor.apply();
-
-                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new PostDetailFragment()).commit();
+//                SharedPreferences.Editor editor = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+//                editor.putString("postID", post.getPostID());
+//                editor.apply();
+//
+//                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                        new PostDetailFragment()).commit();
+                Intent intent = new Intent((FragmentActivity)context, PostDetailActivity.class);
+                intent.putExtra("postID", post.getPostID());
+                context.startActivity(intent);
             }
         });
 
