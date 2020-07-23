@@ -55,11 +55,9 @@ public class ProfileFragment extends Fragment {
         followers = view.findViewById(R.id.followers);
         following = view.findViewById(R.id.followering);
         fullname = view.findViewById(R.id.fullname);
-        bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
+        bio = view.findViewById(R.id.bio);
         edit_profile = view.findViewById(R.id.edit_profile);
-        my_photos = view.findViewById(R.id.my_photos);
-        my_bookmarks = view.findViewById(R.id.my_bookmarks);
 
         // Set all the informations on these pages.
         userInfo();
