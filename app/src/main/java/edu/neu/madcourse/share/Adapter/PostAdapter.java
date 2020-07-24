@@ -56,13 +56,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SharedPreferences.Editor editor = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-//                editor.putString("postID", post.getPostID());
-//                editor.apply();
-//
-//                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        new PostDetailFragment()).commit();
-                Intent intent = new Intent((FragmentActivity)context, PostDetailActivity.class);
+                Intent intent = new Intent(context, PostDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("postID", post.getPostID());
                 context.startActivity(intent);
             }
