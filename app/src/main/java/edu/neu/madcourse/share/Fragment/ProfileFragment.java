@@ -1,6 +1,7 @@
 package edu.neu.madcourse.share.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
+import edu.neu.madcourse.share.MyFavoritesActivity;
+import edu.neu.madcourse.share.MyPostsActivity;
 import edu.neu.madcourse.share.R;
 
 
@@ -38,6 +42,10 @@ public class ProfileFragment extends Fragment {
     String profileid;
 
     ImageButton my_photos, my_bookmarks;
+
+    private LinearLayout my_posts;
+    private LinearLayout my_forum;
+    private LinearLayout my_favorites;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +100,28 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
+        //set my posts on click listener
+        my_posts = (LinearLayout) view.findViewById(R.id.my_posts);
+        my_posts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyPostsActivity.class);
+                startActivity(intent);
+            }
+        });
+        my_forum = (LinearLayout) view.findViewById(R.id.my_forum);
+
+        //set my posts on click listener
+        my_favorites = (LinearLayout) view.findViewById(R.id.my_favorites);
+        my_favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyFavoritesActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         return view;
     }

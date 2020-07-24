@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.PostDetailFragment">
+    tools:context=".PostDetailActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -69,8 +69,9 @@
 
             <ImageView
                 android:id="@+id/post_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="300dp"
                 android:layout_marginBottom="10dp"
                 android:src="@mipmap/ic_launcher" />
 
@@ -104,7 +105,7 @@
                     android:textIsSelectable="true" />
 
                 <TextView
-                    android:id="@+id/comment_nums"
+                    android:id="@+id/comment_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -124,7 +125,7 @@
                     android:textIsSelectable="true" />
 
                 <TextView
-                    android:id="@+id/like_nums"
+                    android:id="@+id/like_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
