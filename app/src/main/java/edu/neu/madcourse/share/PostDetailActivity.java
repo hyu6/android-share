@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,18 +48,16 @@ public class PostDetailActivity extends AppCompatActivity {
     private ImageView author_profile;
     private ImageView post_img;
 
-    private Button back_button;
     private ImageView like;
-    private ImageView comment;
-    private ImageView favorite;
+    private ImageView save;
     final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     private RecyclerView recyclerView;
     private CommentAdapter commentAdapter;
     private List<Comment> commentList;
-    private String postId;
     private EditText addComment;
     private TextView post;
+
 
 
     @Override
@@ -68,7 +67,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Post");
+        getSupportActionBar().setTitle("Post Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +86,7 @@ public class PostDetailActivity extends AppCompatActivity {
         post_img = findViewById(R.id.post_img);
 
         like = findViewById(R.id.like);
+        save = findViewById(R.id.favorite);
 
 
 
@@ -134,7 +134,49 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+        //save posts
+        isSaved(postID, save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(save.getTag().equals("save")){
+                    FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
+                            .child(postID).setValue(true);
+                }else{
+                    FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
+                            .child(postID).removeValue();
+                }
+            }
+        });
 
+
+
+
+    }
+
+    private void isSaved(final String postID, final ImageView imageView){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Saves")
+                .child(firebaseUser.getUid());
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(postID).exists()){
+                    imageView.setImageResource(R.drawable.ic_saved);
+                    imageView.setTag("saved");
+                }else{
+                    imageView.setImageResource(R.drawable.ic_favorite);
+                    imageView.setTag("save");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
