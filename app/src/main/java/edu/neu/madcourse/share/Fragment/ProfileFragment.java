@@ -51,15 +51,13 @@ public class ProfileFragment extends Fragment {
 
         image_profile = view.findViewById(R.id.image_profile);
         options = view.findViewById(R.id.options);
-        posts = view.findViewById(R.id.post);
+        posts = (TextView) view.findViewById(R.id.posts);
         followers = view.findViewById(R.id.followers);
         following = view.findViewById(R.id.followering);
         fullname = view.findViewById(R.id.fullname);
-        bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
+        bio = view.findViewById(R.id.bio);
         edit_profile = view.findViewById(R.id.edit_profile);
-        my_photos = view.findViewById(R.id.my_photos);
-        my_bookmarks = view.findViewById(R.id.my_bookmarks);
 
         // Set all the informations on these pages.
         userInfo();
@@ -165,7 +163,7 @@ public class ProfileFragment extends Fragment {
         followingReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                followers.setText("" + snapshot.getChildrenCount());
+                following.setText("" + snapshot.getChildrenCount());
             }
 
             @Override
@@ -183,7 +181,7 @@ public class ProfileFragment extends Fragment {
                 int count = 0;
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Post post = data.getValue(Post.class);
-                    if (post.getAuthorID().equals(profileid)) {
+                    if (post != null && post.getAuthorID() != null && post.getAuthorID().equals(profileid)) {
                         count += 1;
                     }
                 }
