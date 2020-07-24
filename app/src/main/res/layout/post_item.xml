@@ -15,7 +15,7 @@
             android:id="@+id/post_title"
             android:text="Post Title"
             android:textStyle="bold"
-            android:textSize="32sp"/>
+            android:textSize="24sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

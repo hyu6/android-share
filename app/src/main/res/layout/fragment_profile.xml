@@ -206,7 +206,6 @@
                         android:src="@drawable/ic_post"/>
 
                     <TextView
-                        android:textColor="#000"
                         android:textSize="20sp"
                         android:paddingLeft="10dp"
                         android:layout_weight="1"
@@ -236,7 +235,6 @@
                         android:src="@drawable/ic_forum"/>
 
                     <TextView
-                        android:textColor="#000"
                         android:textSize="20sp"
                         android:paddingLeft="10dp"
                         android:layout_weight="1"
@@ -266,7 +264,6 @@
                         android:src="@drawable/ic_favorite_filled"/>
 
                     <TextView
-                        android:textColor="#000"
                         android:textSize="20sp"
                         android:paddingLeft="10dp"
                         android:layout_weight="1"

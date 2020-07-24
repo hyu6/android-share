@@ -26,7 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.neu.madcourse.share.Adapter.PostAdapter;
+import edu.neu.madcourse.share.MainActivity;
 import edu.neu.madcourse.share.Model.Post;
+import edu.neu.madcourse.share.PostActivity;
 import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
 
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getActivity(), PostActivity.class));
             }
         });
 
