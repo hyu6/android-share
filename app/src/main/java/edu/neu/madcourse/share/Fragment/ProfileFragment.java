@@ -59,6 +59,7 @@ public class ProfileFragment extends Fragment {
         bio = view.findViewById(R.id.bio);
         edit_profile = view.findViewById(R.id.edit_profile);
 
+
         // Set all the informations on these pages.
         userInfo();
         getFollowers();
