@@ -58,6 +58,9 @@ public class PostDetailActivity extends AppCompatActivity {
     private EditText addComment;
     private TextView post;
 
+    private TextView like_num;
+    private TextView comment_num;
+
 
 
     @Override
@@ -88,6 +91,9 @@ public class PostDetailActivity extends AppCompatActivity {
         like = findViewById(R.id.like);
         save = findViewById(R.id.favorite);
 
+        like_num = findViewById(R.id.like_num);
+        comment_num = findViewById(R.id.comment_num);
+
 
 
         getLikes(postID, like);
@@ -101,6 +107,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(postID)
                             .child(firebaseUser.getUid()).removeValue();
                 }
+                countLikes(postID, like_num);
             }
         });
         getPost();
@@ -149,9 +156,12 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+        //count likes
+        countLikes(postID, like_num);
 
 
-
+        //count comments
+        countComments(postID, comment_num);
     }
 
     private void isSaved(final String postID, final ImageView imageView){
@@ -218,6 +228,7 @@ public class PostDetailActivity extends AppCompatActivity {
         addComment.setText("");
         closeKeyboard();
         readComments();
+        countComments(postID, comment_num);
     }
 
     private void closeKeyboard(){
@@ -228,12 +239,38 @@ public class PostDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void countLikes(final TextView likes, String postID){
+    private void countLikes(String postID, final TextView like_num){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Likes").child(postID);
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                likes.setText(snapshot.getChildren() + "likes");
+                int count = 0;
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    count++;
+                }
+                like_num.setText(String.valueOf(count));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void countComments(String postID, final TextView comment_num){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Comments").child(postID);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int count = 0;
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    count++;
+                }
+                comment_num.setText(String.valueOf(count));
             }
 
             @Override

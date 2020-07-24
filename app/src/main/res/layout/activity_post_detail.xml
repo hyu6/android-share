@@ -104,7 +104,7 @@
                     android:textIsSelectable="true" />
 
                 <TextView
-                    android:id="@+id/comment_nums"
+                    android:id="@+id/comment_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -124,7 +124,7 @@
                     android:textIsSelectable="true" />
 
                 <TextView
-                    android:id="@+id/like_nums"
+                    android:id="@+id/like_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
