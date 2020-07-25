@@ -36,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
+import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.User;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -122,6 +123,9 @@ public class EditProfileActivity extends AppCompatActivity {
         hashMap.put("bio", bio);
 
         reference.updateChildren(hashMap);
+
+        // Bring backs to the main activity.
+        startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
     }
 
     private String getFileExtension(Uri uri) {
