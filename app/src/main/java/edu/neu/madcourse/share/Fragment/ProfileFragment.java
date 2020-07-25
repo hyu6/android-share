@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import edu.neu.madcourse.share.EditProfileActivity;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.MyFavoritesActivity;
@@ -86,7 +87,7 @@ public class ProfileFragment extends Fragment {
                 String button = edit_profile.getText().toString();
 
                 if (button.equals("Edit Profile")) {
-                    // TODO: Change to another page.
+                    startActivity(new Intent(getContext(), EditProfileActivity.class));
                 } else if (button.equals("follow")) {
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                             .child("following").child(profileid).setValue(true);
