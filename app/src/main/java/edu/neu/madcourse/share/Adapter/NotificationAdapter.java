@@ -62,27 +62,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (notification.isPost()) {
-//                    SharedPreferences.Editor editor = mContext
-//                            .getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-//                    editor.putString("postid", notification.getPostId());
-//                    editor.apply();
-//
+                if (notification.isPost()) {
+                    SharedPreferences.Editor editor = mContext
+                            .getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+                    editor.putString("postid", notification.getPostId());
+                    editor.apply();
+
 //                    ((FragmentActivity) mContext).getSupportFragmentManager()
 //                            .beginTransaction()
 //                            .replace(R.id.fragment_container, new PostDetailFragment());
-//                } else {
-//                    SharedPreferences.Editor editor = mContext
-//                            .getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-//                    editor.putString("profileid", notification.getUserId());
-//                    editor.apply();
-//
-//                    ((FragmentActivity) mContext).getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .replace(R.id.fragment_container, new ProfileFragment());
-//                }
-
-                if (!notification.isPost()) {
+                } else {
                     SharedPreferences.Editor editor = mContext
                             .getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
                     editor.putString("profileid", notification.getUserId());
