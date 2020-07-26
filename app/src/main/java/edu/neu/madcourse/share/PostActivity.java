@@ -29,8 +29,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.util.HashMap;
-
 import edu.neu.madcourse.share.Model.Post;
 
 public class PostActivity extends AppCompatActivity {
@@ -120,19 +118,19 @@ public class PostActivity extends AppCompatActivity {
 
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
-                        String postid = reference.push().getKey();
+                        String postId = reference.push().getKey();
 
 
                         Post newPost = new Post();
-                        newPost.setPostID(postid);
+                        newPost.setPostID(postId);
                         newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         newPost.setPostContent(content.getText().toString());
                         newPost.setPostIMG(myUrl);
                         newPost.setTitle(title.getText().toString());
 
 
-//                        reference.child(postid).setValue(hashMap);
-                        reference.child(postid).setValue(newPost);
+//                        reference.child(postId).setValue(hashMap);
+                        reference.child(postId).setValue(newPost);
 
                         progressDialog.dismiss();
 

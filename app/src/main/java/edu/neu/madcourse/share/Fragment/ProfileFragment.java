@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import edu.neu.madcourse.share.EditProfileActivity;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
@@ -69,7 +71,7 @@ public class ProfileFragment extends Fragment {
         edit_profile = view.findViewById(R.id.edit_profile);
 
 
-        // Set all the informations on these pages.
+        // Set all the info on these pages.
         userInfo();
         getFollowers();
         getPosts();
@@ -93,6 +95,8 @@ public class ProfileFragment extends Fragment {
                             .child("following").child(profileid).setValue(true);
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
                             .child("followers").child(firebaseUser.getUid()).setValue(true);
+
+                    addNotifications();
                 } else if (button.equals("following")) {
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                             .child("following").child(profileid).removeValue();
@@ -125,6 +129,19 @@ public class ProfileFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void addNotifications() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Notifications").child(profileid);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("userId", firebaseUser.getUid());
+        hashMap.put("text", "started following you");
+        hashMap.put("postId", "");
+        hashMap.put("isPost", false);
+
+        reference.push().setValue(hashMap);
     }
 
     private void userInfo() {
