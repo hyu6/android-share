@@ -28,6 +28,15 @@
                     android:textStyle="bold"
                     android:id="@+id/username"
                     android:textColor="@color/colorPrimaryDark"/>
+                
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/options"
+                    android:src="@drawable/ic_options"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"/>
+
 
             </RelativeLayout>
 
@@ -231,7 +240,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Communities"/>
+                        android:text="My Forum"/>
 
                     <ImageView
                         android:layout_width="20dp"
@@ -260,41 +269,14 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Bookmarks"/>
+                        android:text="My Favorites"/>
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
                         android:src="@drawable/ic_right"/>
-                </LinearLayout>
 
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/my_settings"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_settings"/>
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:paddingLeft="10dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Settings"/>
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_right"/>
                 </LinearLayout>
 
             </LinearLayout>
