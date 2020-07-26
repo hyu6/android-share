@@ -31,22 +31,21 @@ import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.MyFavoritesActivity;
 import edu.neu.madcourse.share.MyPostsActivity;
 import edu.neu.madcourse.share.R;
-import edu.neu.madcourse.share.SettingsActivity;
 
 
 public class ProfileFragment extends Fragment {
 
-    ImageView image_profile;
+    ImageView image_profile, options;
     TextView posts, followers, following, fullname, bio, username;
     Button edit_profile;
 
     FirebaseUser firebaseUser;
     String profileid;
 
-    ImageButton my_photos;
+    ImageButton my_photos, my_bookmarks;
 
     private LinearLayout my_posts;
-    private LinearLayout my_settings;
+    private LinearLayout my_forum;
     private LinearLayout my_favorites;
 
     @Override
@@ -60,6 +59,7 @@ public class ProfileFragment extends Fragment {
         profileid = prefs.getString("profileid", "none");
 
         image_profile = view.findViewById(R.id.image_profile);
+        options = view.findViewById(R.id.options);
         posts = (TextView) view.findViewById(R.id.posts);
         followers = view.findViewById(R.id.followers);
         following = view.findViewById(R.id.followering);
@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        my_forum = (LinearLayout) view.findViewById(R.id.my_forum);
 
         //set my posts on click listener
         my_favorites = (LinearLayout) view.findViewById(R.id.my_favorites);
@@ -119,16 +119,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyFavoritesActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //set up my settings
-        my_settings = (LinearLayout) view.findViewById(R.id.my_settings);
-        my_settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(intent);
             }
         });

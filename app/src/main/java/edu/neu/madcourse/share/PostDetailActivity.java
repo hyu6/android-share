@@ -310,8 +310,12 @@ public class PostDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User author = snapshot.getValue(User.class);
-                Glide.with(getApplicationContext()).load(author.getImageurl()).into(author_profile);
+                if(getBaseContext() != null && author.getImageurl() != null) {
+                    Glide.with(getBaseContext()).load(author.getImageurl()).into(author_profile);
+                }
                 author_name.setText(author.getUsername());
+
+
             }
 
             @Override
