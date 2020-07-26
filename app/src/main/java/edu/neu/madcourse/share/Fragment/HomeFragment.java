@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,8 @@ import java.util.List;
 import edu.neu.madcourse.share.Adapter.PostAdapter;
 import edu.neu.madcourse.share.MainActivity;
 import edu.neu.madcourse.share.Model.Post;
+import edu.neu.madcourse.share.Model.User;
+import edu.neu.madcourse.share.MyPostsActivity;
 import edu.neu.madcourse.share.PostActivity;
 import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
@@ -39,6 +43,7 @@ public class HomeFragment extends Fragment {
     private List<Post> posts;
     private List<String> followings;
     private ImageView create;
+    private ImageView Image_profile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +56,33 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        Image_profile = view.findViewById(R.id.image_profile);
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users")
+                .child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                Glide.with(getContext()).load(user.getImageurl()).into(Image_profile);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Image_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MyPostsActivity.class));
+            }
+        });
+
 
 
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
