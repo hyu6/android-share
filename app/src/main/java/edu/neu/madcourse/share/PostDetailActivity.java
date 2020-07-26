@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +60,6 @@ public class PostDetailActivity extends AppCompatActivity {
     private TextView comment_num;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,16 +91,15 @@ public class PostDetailActivity extends AppCompatActivity {
         like_num = findViewById(R.id.like_num);
         comment_num = findViewById(R.id.comment_num);
 
-
-
         getLikes(postID, like);
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(like.getTag().equals("like")){
+                if (like.getTag().equals("like")) {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(postID)
                             .child(firebaseUser.getUid()).setValue(true);
-                }else{
+                    addNotifications(mpost.getAuthorID(), mpost.getPostID());
+                } else {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(postID)
                             .child(firebaseUser.getUid()).removeValue();
                 }
@@ -111,7 +107,6 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
         getPost();
-
 
         //get comment
         recyclerView = findViewById(R.id.recycler_view);
@@ -126,7 +121,6 @@ public class PostDetailActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(divider);
         addComment = findViewById(R.id.add_comment);
         readComments();
-
 
         //add comments
         post = findViewById(R.id.post);
@@ -146,10 +140,10 @@ public class PostDetailActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(save.getTag().equals("save")){
+                if (save.getTag().equals("save")) {
                     FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
                             .child(postID).setValue(true);
-                }else{
+                } else {
                     FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
                             .child(postID).removeValue();
                 }
@@ -164,7 +158,7 @@ public class PostDetailActivity extends AppCompatActivity {
         countComments(postID, comment_num);
     }
 
-    private void isSaved(final String postID, final ImageView imageView){
+    private void isSaved(final String postID, final ImageView imageView) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Saves")
@@ -173,10 +167,10 @@ public class PostDetailActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(postID).exists()){
+                if (snapshot.child(postID).exists()) {
                     imageView.setImageResource(R.drawable.ic_saved);
                     imageView.setTag("saved");
-                }else{
+                } else {
                     imageView.setImageResource(R.drawable.ic_favorite);
                     imageView.setTag("save");
                 }
@@ -190,19 +184,17 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
-    private void getLikes(String postID, final ImageView imageView){
-
-
+    private void getLikes(String postID, final ImageView imageView) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
                 .child("Likes").child(postID);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(firebaseUser.getUid()).exists()){
+                if (snapshot.child(firebaseUser.getUid()).exists()) {
                     imageView.setImageResource(R.drawable.ic_liked);
                     imageView.setTag("liked");
-                }else{
+                } else {
                     imageView.setImageResource(R.drawable.ic_like);
                     imageView.setTag("like");
                 }
@@ -225,28 +217,29 @@ public class PostDetailActivity extends AppCompatActivity {
         hashMap.put("publisher", firebaseUser.getUid());
 
         reference.push().setValue(hashMap);
+        addNotifications();
         addComment.setText("");
         closeKeyboard();
         readComments();
         countComments(postID, comment_num);
     }
 
-    private void closeKeyboard(){
+    private void closeKeyboard() {
         View view = this.getCurrentFocus();
-        if(view != null){
+        if (view != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
-    private void countLikes(String postID, final TextView like_num){
+    private void countLikes(String postID, final TextView like_num) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Likes").child(postID);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int count = 0;
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     count++;
                 }
                 like_num.setText(String.valueOf(count));
@@ -260,14 +253,14 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
-    private void countComments(String postID, final TextView comment_num){
+    private void countComments(String postID, final TextView comment_num) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Comments").child(postID);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int count = 0;
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     count++;
                 }
                 comment_num.setText(String.valueOf(count));
@@ -290,7 +283,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 mpost = snapshot.getValue(Post.class);
                 post_title.setText(mpost.getTitle());
                 post_content.setText(mpost.getPostContent());
-                if(getBaseContext() != null){
+                if (getBaseContext() != null) {
                     Glide.with(getBaseContext()).load(mpost.getPostIMG()).into(post_img);
                 }
                 getAuthorInfo(mpost.getAuthorID());
@@ -310,12 +303,10 @@ public class PostDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User author = snapshot.getValue(User.class);
-                if(getBaseContext() != null && author.getImageurl() != null) {
+                if (getBaseContext() != null && author.getImageurl() != null) {
                     Glide.with(getBaseContext()).load(author.getImageurl()).into(author_profile);
                 }
                 author_name.setText(author.getUsername());
-
-
             }
 
             @Override
@@ -347,5 +338,33 @@ public class PostDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    // like
+    private void addNotifications(String userId, String postId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Notifications").child(userId);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("userId", userId);
+        hashMap.put("text", "liked your post");
+        hashMap.put("postId", postId);
+        hashMap.put("isPost", true);
+
+        reference.push().setValue(hashMap);
+    }
+
+    // comment
+    private void addNotifications() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Notifications").child(mpost.getAuthorID());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("userId", firebaseUser.getUid());
+        hashMap.put("text", "commented: " + addComment.getText().toString());
+        hashMap.put("postId", mpost.getPostID());
+        hashMap.put("isPost", true);
+
+        reference.push().setValue(hashMap);
     }
 }
