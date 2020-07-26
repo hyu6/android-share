@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:src="@drawable/dark"/>
+        android:src="@drawable/test_profile"/>
 
     <EditText
         android:layout_width="match_parent"
