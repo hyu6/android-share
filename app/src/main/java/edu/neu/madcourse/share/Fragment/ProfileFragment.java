@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
             edit_profile.setText("Edit Profile");
         } else {
             checkFollow();
-            my_photos.setVisibility(View.GONE);
+//            my_photos.setVisibility(View.GONE);
         }
 
         edit_profile.setOnClickListener(new View.OnClickListener() {
