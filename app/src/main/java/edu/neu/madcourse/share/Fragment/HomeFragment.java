@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,10 +26,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import edu.neu.madcourse.share.Adapter.PostAdapter;
 import edu.neu.madcourse.share.MainActivity;
 import edu.neu.madcourse.share.Model.Post;
+import edu.neu.madcourse.share.Model.User;
+import edu.neu.madcourse.share.MyPostsActivity;
 import edu.neu.madcourse.share.PostActivity;
 import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
@@ -38,7 +43,6 @@ public class HomeFragment extends Fragment {
     private PostAdapter postAdapter;
     private List<Post> posts;
     private List<String> followings;
-    private ImageView create;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,18 +61,13 @@ public class HomeFragment extends Fragment {
         recyclerView.addItemDecoration(divider);
 
 
+
+
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
         getFollowing();
 
-        create = view.findViewById(R.id.create);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), PostActivity.class));
-            }
-        });
 
 
         // Inflate the layout for this fragment
