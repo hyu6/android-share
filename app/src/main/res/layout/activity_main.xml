@@ -20,7 +20,8 @@
             android:layout_marginBottom="25dp"
             android:clickable="true"
             android:src="@drawable/ic_add"
-            android:id="@+id/add"/>
+            android:id="@+id/add"
+            android:backgroundTint="@color/lightBlue"/>
 
     </FrameLayout>
 

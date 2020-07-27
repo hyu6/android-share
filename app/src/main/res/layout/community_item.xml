@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -12,8 +13,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/post_title"
-            android:text="Post Title"
+            android:id="@+id/community_title"
+            android:text="Community Name"
             android:textStyle="bold"
             android:textSize="24sp"/>
 
@@ -26,17 +27,17 @@
                 android:layout_width="40dp"
                 android:layout_height="32dp"
                 android:layout_margin="10dp"
-                android:id="@+id/author_profile"
+                android:id="@+id/community_image"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/username"
+                android:id="@+id/description"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="username"/>
+                android:text="Community Description"/>
 
 
         </LinearLayout>
