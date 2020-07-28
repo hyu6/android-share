@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +48,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Community community = communities.get(position);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // Set the title of the community.
         holder.name.setText(community.getName());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community")
@@ -58,7 +62,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
                 // Set the image of the community.
                 Glide.with(context).load(community.getImage()).into(holder.image);
+
+                // Set the description of the community.
                 holder.description.setText(community.getDescription());
+
+
+                isSubscribed(firebaseUser.getUid(), holder.subscribe, community.getCommunityId());
             }
 
             @Override
@@ -79,6 +88,25 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             }
         });
 
+        holder.subscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.subscribe.getText().toString().equals("Subscribe")) {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Subscribe")
+                            .child(firebaseUser.getUid())
+                            .child(community.getCommunityId())
+                            .setValue(true);
+                } else {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Subscribe")
+                            .child(firebaseUser.getUid())
+                            .child(community.getCommunityId())
+                            .removeValue();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -89,6 +117,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name, description;
         public ImageView image;
+        public Button subscribe;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -96,7 +125,31 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             name = itemView.findViewById(R.id.community_title);
             image = itemView.findViewById(R.id.community_image);
             description = itemView.findViewById(R.id.description);
-
+            subscribe = itemView.findViewById(R.id.subscribe);
         }
+    }
+
+    // Check whether the current user subscribes this community.
+    private void isSubscribed(final String userid, final Button button, final String communityId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Subscribe")
+                .child(firebaseUser.getUid())
+                .child(communityId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    button.setText("Unsubscribe");
+                } else {
+                    button.setText("Subscribe");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

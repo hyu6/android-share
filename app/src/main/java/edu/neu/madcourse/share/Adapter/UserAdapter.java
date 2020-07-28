@@ -29,7 +29,7 @@ import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class  UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<User> mUsers;

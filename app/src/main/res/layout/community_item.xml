@@ -47,7 +47,7 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="40dp"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:background="@drawable/button_background"
         android:id="@+id/subscribe"
