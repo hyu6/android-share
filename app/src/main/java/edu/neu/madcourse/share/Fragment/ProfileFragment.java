@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import edu.neu.madcourse.share.EditProfileActivity;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
+import edu.neu.madcourse.share.MyCommunityActivity;
 import edu.neu.madcourse.share.MyFavoritesActivity;
 import edu.neu.madcourse.share.MyPostsActivity;
 import edu.neu.madcourse.share.R;
@@ -50,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout my_posts;
     private LinearLayout my_settings;
     private LinearLayout my_favorites;
+    private LinearLayout my_communities;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -131,7 +134,18 @@ public class ProfileFragment extends Fragment {
         my_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        my_communities = (LinearLayout) view.findViewById(R.id.my_forum);
+        my_communities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Test", "onClick: ");
+                Intent intent = new Intent(getActivity(), MyCommunityActivity.class);
                 startActivity(intent);
             }
         });

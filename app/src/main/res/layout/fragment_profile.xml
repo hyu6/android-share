@@ -232,7 +232,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="My Forum"/>
+                        android:text="My Community"/>
 
                     <ImageView
                         android:layout_width="20dp"
