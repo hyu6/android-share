@@ -6,7 +6,7 @@ public class Post {
     private String postContent;
     private String title;
     private String authorID;
-    private String communityID;
+    private String community;
 
     public Post(){
 
@@ -20,12 +20,12 @@ public class Post {
         this.authorID = author;
     }
 
-    public String getCommunityID() {
-        return communityID;
+    public String getCommunity() {
+        return community;
     }
 
-    public void setCommunityID(String communityID) {
-        this.communityID = communityID;
+    public void setCommunity(String communityID) {
+        this.community = communityID;
     }
 
     public String getPostID() {

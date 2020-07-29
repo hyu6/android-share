@@ -29,6 +29,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.util.ArrayList;
+
 import edu.neu.madcourse.share.Model.Community;
 
 public class CommunityActivity extends AppCompatActivity {
@@ -128,7 +130,7 @@ public class CommunityActivity extends AppCompatActivity {
                         newCommunity.setCreator(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         newCommunity.setImage(myUrl);
                         newCommunity.setDescription(description.getText().toString());
-
+                        newCommunity.setPosts(new ArrayList<String>());
 
 //                        reference.child(postId).setValue(hashMap);
                         reference.child(communityId).setValue(newCommunity);

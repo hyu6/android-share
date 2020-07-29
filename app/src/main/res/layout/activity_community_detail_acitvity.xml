@@ -85,6 +85,14 @@
                 android:text="The description of this Commuity"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view"
+                />
+
+
         </LinearLayout>
 
     </LinearLayout>

@@ -75,9 +75,6 @@ public class MyCommunityActivity extends AppCompatActivity {
                     myCommunities.add(dataSnapshot.getKey());
                 }
 
-//                for (int i = 0; i < myCommunities.size(); i++) {
-//                    Log.d("Com", "onDataChange: " + myCommunities.get(i));
-//                }
                 AddCommunities(myCommunities);
             }
 

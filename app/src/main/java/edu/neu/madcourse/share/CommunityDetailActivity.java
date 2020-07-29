@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.neu.madcourse.share.Adapter.PostAdapter;
 import edu.neu.madcourse.share.Model.Community;
+import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
 
 public class CommunityDetailActivity extends AppCompatActivity {
@@ -25,7 +33,9 @@ public class CommunityDetailActivity extends AppCompatActivity {
     String creatorId;
     TextView community_title, description, creator_name;
     ImageView community_image, creator_profile;
-
+    List<Post> posts;
+    private RecyclerView recyclerView;
+    private PostAdapter postAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +86,47 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
         // Set the information about the community.
         getCommunity();
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(divider);
+
+        // Display the posts inside this community.
+        posts = new ArrayList<>();
+
+        getPosts();
+
+        postAdapter = new PostAdapter(this, posts);
+        recyclerView.setAdapter(postAdapter);
+    }
+
+    private void getPosts() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                posts.clear();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Post post = dataSnapshot.getValue(Post.class);
+
+                    if (post != null && post.getCommunity() != null && post.getCommunity().equals(community_title.getText().toString())) {
+                        posts.add(post);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     // Set the value of the community details

@@ -66,6 +66,7 @@ public class PostActivity extends AppCompatActivity {
         content = findViewById(R.id.content);
         community = findViewById(R.id.community);
 
+        // Choose from the communities.
         setSpinners();
 
         storageReference = FirebaseStorage.getInstance().getReference("posts");
@@ -126,6 +127,35 @@ public class PostActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    private void setPost(final String communityName) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Log.d("Test", data.toString());
+                    Community community = data.getValue(Community.class);
+
+                    Log.d("Test", communityName + " versus " + community.getName());
+
+                    if (community.getName().equals(communityName)) {
+                        community.getPosts().add(community.getCommunityId());
+                    }
+
+                    for (String s : community.getPosts()) {
+                        Log.d("Add the name", "onDataChange: " + s);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void uploadImage() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Posting");
@@ -171,7 +201,7 @@ public class PostActivity extends AppCompatActivity {
                         newPost.setPostContent(content.getText().toString());
                         newPost.setPostIMG(myUrl);
                         newPost.setTitle(title.getText().toString());
-                        newPost.setCommunityID(community.getSelectedItem().toString());
+                        newPost.setCommunity(community.getSelectedItem().toString());
 
                         reference.child(postId).setValue(newPost);
 

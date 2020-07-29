@@ -66,7 +66,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 // Set the description of the community.
                 holder.description.setText(community.getDescription());
 
-
                 isSubscribed(firebaseUser.getUid(), holder.subscribe, community.getCommunityId());
             }
 

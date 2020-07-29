@@ -1,6 +1,5 @@
 package edu.neu.madcourse.share.Model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Community {
@@ -12,8 +11,16 @@ public class Community {
     private List<String> members;
     private List<String> posts;
 
-    public Community() {
-        this.members = new ArrayList<>();
+//    public Community() {
+//        this.members = new ArrayList<>();
+//    }
+
+    public List<String> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<String> posts) {
+        this.posts = posts;
     }
 
     public List<String> getMembers() {
