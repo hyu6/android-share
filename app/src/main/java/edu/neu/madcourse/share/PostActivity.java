@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +24,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.neu.madcourse.share.Model.Community;
 import edu.neu.madcourse.share.Model.Post;
 
 public class PostActivity extends AppCompatActivity {
@@ -42,6 +51,8 @@ public class PostActivity extends AppCompatActivity {
     TextView post;
     EditText title;
     EditText content;
+    Spinner community;
+    String[] communities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,9 @@ public class PostActivity extends AppCompatActivity {
         post = findViewById(R.id.post);
         title = findViewById(R.id.Title);
         content = findViewById(R.id.content);
+        community = findViewById(R.id.community);
+
+        setSpinners();
 
         storageReference = FirebaseStorage.getInstance().getReference("posts");
 
@@ -74,6 +88,36 @@ public class PostActivity extends AppCompatActivity {
         CropImage.activity()
                 .setAspectRatio(1, 1)
                 .start(PostActivity.this);
+    }
+
+    // Set the spinners.
+    private void setSpinners() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community");
+        final List<String> list = new ArrayList<>();
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    list.add(data.getValue(Community.class).getName());
+                }
+
+                // Convert the list to the array.
+                communities = new String[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    communities[i] = list.get(i);
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostActivity.this, android.R.layout.simple_spinner_item, communities);
+
+                community.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private String getFileExtension(Uri uri) {
@@ -121,15 +165,14 @@ public class PostActivity extends AppCompatActivity {
                         String postId = reference.push().getKey();
 
 
-                        Post newPost = new Post();
+                        final Post newPost = new Post();
                         newPost.setPostID(postId);
                         newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         newPost.setPostContent(content.getText().toString());
                         newPost.setPostIMG(myUrl);
                         newPost.setTitle(title.getText().toString());
+                        newPost.setCommunityID(community.getSelectedItem().toString());
 
-
-//                        reference.child(postId).setValue(hashMap);
                         reference.child(postId).setValue(newPost);
 
                         progressDialog.dismiss();

@@ -60,6 +60,8 @@
             android:src="@mipmap/ic_launcher"
             android:id="@+id/image_added" />
 
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,6 +69,12 @@
             android:hint="Please enter a title"
             android:maxLines="5"
             android:id="@+id/Title" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:id="@+id/community"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -77,6 +85,7 @@
             android:hint="Content"
             android:maxLines="5"
             android:id="@+id/content" />
+
 
 
 

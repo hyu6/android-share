@@ -10,6 +10,7 @@ public class Community {
     private String description;
     private String creator;
     private List<String> members;
+    private List<String> posts;
 
     public Community() {
         this.members = new ArrayList<>();
