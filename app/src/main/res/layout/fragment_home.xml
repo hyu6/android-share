@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:windowBackground">
+            android:background="?android:windowBackground"
+            android:contentInsetStart="0dp"
+            android:contentInsetEnd="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"

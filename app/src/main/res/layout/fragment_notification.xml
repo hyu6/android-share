@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.NotificationFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:attr/windowBackground">
+            android:background="?android:attr/windowBackground"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
