@@ -41,7 +41,7 @@ import edu.neu.madcourse.share.SettingsActivity;
 public class ProfileFragment extends Fragment {
 
     ImageView image_profile;
-    TextView posts, followers, following, fullname, bio, username;
+    TextView posts, followers, following, fullname, bio, username, location;
     Button edit_profile;
 
     FirebaseUser firebaseUser;
@@ -72,6 +72,7 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.username);
         bio = view.findViewById(R.id.bio);
         edit_profile = view.findViewById(R.id.edit_profile);
+        location = view.findViewById(R.id.location);
 
 
         // Set all the info on these pages.
@@ -183,6 +184,7 @@ public class ProfileFragment extends Fragment {
                 username.setText(user.getUsername());
                 fullname.setText(user.getFullname());
                 bio.setText(user.getBio());
+                location.setText(user.getLocation());
             }
 
             @Override
