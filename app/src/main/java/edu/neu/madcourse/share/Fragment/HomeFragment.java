@@ -1,7 +1,9 @@
 package edu.neu.madcourse.share.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,15 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,15 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import edu.neu.madcourse.share.Adapter.PostAdapter;
-import edu.neu.madcourse.share.MainActivity;
 import edu.neu.madcourse.share.Model.Post;
-import edu.neu.madcourse.share.Model.User;
-import edu.neu.madcourse.share.MyPostsActivity;
-import edu.neu.madcourse.share.PostActivity;
-import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
 
 public class HomeFragment extends Fragment {
@@ -56,35 +44,28 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
-
-
-
 
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), posts);
         recyclerView.setAdapter(postAdapter);
         getFollowing();
 
-
-
         // Inflate the layout for this fragment
         return view;
-
     }
 
-    private void getPosts(){
+    private void getPosts() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 posts.clear();
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
-                    for(String user: followings){
-                        if (post != null &&  post.getAuthorID() != null && post.getAuthorID().equals(user)) {
+                    for (String user : followings) {
+                        if (post != null && post.getAuthorID() != null && post.getAuthorID().equals(user)) {
                             posts.add(post);
                         }
                     }
@@ -100,7 +81,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void getFollowing(){
+    private void getFollowing() {
         followings = new ArrayList<>();
         final String curUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -113,7 +94,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 followings.clear();
                 followings.add(curUserID);
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     followings.add(dataSnapshot.getKey());
                 }
 
