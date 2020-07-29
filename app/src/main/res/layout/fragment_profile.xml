@@ -27,7 +27,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:id="@+id/username"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/colorPrimaryDark" />
 
 
             </RelativeLayout>
@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,13 +65,13 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="4dp"
                     android:orientation="vertical">
-                    
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal">
-                        
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                                 android:textColor="@color/colorPrimaryDark"
                                 android:layout_gravity="center"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                                 android:textColor="@color/colorPrimaryDark"
                                 android:layout_gravity="center"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
                                 android:textColor="@color/colorPrimaryDark"
                                 android:layout_gravity="center"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -136,15 +136,15 @@
                                 android:text="following" />
 
                         </LinearLayout>
-                        
+
                     </LinearLayout>
-                    
+
                     <Button
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" 
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:id="@+id/edit_profile"
-                        android:background="@drawable/button_black"/>
+                        android:background="@drawable/button_black" />
 
                 </LinearLayout>
 
@@ -155,16 +155,34 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:id="@+id/mid_bar"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:id="@+id/fullname"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimaryDark"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:id="@+id/fullname"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:id="@+id/location"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,11 +190,9 @@
                     android:layout_marginTop="5dp"
                     android:id="@+id/bio"
                     android:maxLines="5"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -195,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:src="@drawable/ic_post"/>
+                        android:src="@drawable/ic_post" />
 
                     <TextView
                         android:textSize="20sp"
@@ -203,13 +219,13 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="My Posts"/>
+                        android:text="My Posts" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_right"/>
+                        android:src="@drawable/ic_right" />
 
                 </LinearLayout>
 
@@ -224,7 +240,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:src="@drawable/ic_forum"/>
+                        android:src="@drawable/ic_forum" />
 
                     <TextView
                         android:textSize="20sp"
@@ -232,13 +248,13 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="My Community"/>
+                        android:text="My Community" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_right"/>
+                        android:src="@drawable/ic_right" />
 
                 </LinearLayout>
 
@@ -253,7 +269,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:src="@drawable/ic_favorite_filled"/>
+                        android:src="@drawable/ic_favorite_filled" />
 
                     <TextView
                         android:textSize="20sp"
@@ -261,13 +277,13 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="My Favorites"/>
+                        android:text="My Favorites" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_right"/>
+                        android:src="@drawable/ic_right" />
 
                 </LinearLayout>
 
@@ -282,7 +298,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:src="@drawable/ic_settings"/>
+                        android:src="@drawable/ic_settings" />
 
                     <TextView
                         android:textSize="20sp"
@@ -290,13 +306,13 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Settings"/>
+                        android:text="Settings" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_right"/>
+                        android:src="@drawable/ic_right" />
                 </LinearLayout>
 
             </LinearLayout>
