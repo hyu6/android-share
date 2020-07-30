@@ -31,7 +31,8 @@ import edu.neu.madcourse.share.Model.User;
 public class CommunityDetailActivity extends AppCompatActivity {
     String communityId;
     String creatorId;
-    TextView community_title, description, creator_name;
+    String communityName;
+    TextView description, creator_name;
     ImageView community_image, creator_profile;
     List<Post> posts;
     private RecyclerView recyclerView;
@@ -45,7 +46,6 @@ public class CommunityDetailActivity extends AppCompatActivity {
         // ToolBar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Community Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,6 @@ public class CommunityDetailActivity extends AppCompatActivity {
         creatorId = intent.getStringExtra("creatorId");
 
         // Find the component.
-        community_title = findViewById(R.id.community_title);
         community_image = findViewById(R.id.community_image);
         description = findViewById(R.id.description);
         creator_name = findViewById(R.id.creator_name);
@@ -74,7 +73,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                creator_name.setText("Created by: " + user.getUsername());
+                creator_name.setText(user.getUsername());
                 Glide.with(getBaseContext()).load(user.getImageurl()).into(creator_profile);
             }
 
@@ -116,7 +115,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
 
-                    if (post != null && post.getCommunity() != null && post.getCommunity().equals(community_title.getText().toString())) {
+                    if (post != null && post.getCommunity() != null && post.getCommunity().equals(communityName)) {
                         posts.add(post);
                     }
                 }
@@ -138,9 +137,10 @@ public class CommunityDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Community community = snapshot.getValue(Community.class);
-                community_title.setText(community.getName().toString());
+                communityName = community.getName();
+                getSupportActionBar().setTitle(communityName);
                 Glide.with(getBaseContext()).load(community.getImage()).into(community_image);
-                description.setText(community.getDescription().toString());
+                description.setText(community.getDescription());
             }
 
             @Override
