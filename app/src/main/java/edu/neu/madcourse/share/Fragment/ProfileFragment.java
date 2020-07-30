@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 import edu.neu.madcourse.share.EditProfileActivity;
+import edu.neu.madcourse.share.FollowersActivity;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.MyCommunityActivity;
@@ -35,7 +35,6 @@ import edu.neu.madcourse.share.MyFavoritesActivity;
 import edu.neu.madcourse.share.MyPostsActivity;
 import edu.neu.madcourse.share.R;
 import edu.neu.madcourse.share.SettingsActivity;
-
 
 public class ProfileFragment extends Fragment {
 
@@ -77,6 +76,28 @@ public class ProfileFragment extends Fragment {
 
         if (!isSelf) {
             selfLayout.setVisibility(View.GONE);
+            following.setClickable(false);
+            followers.setClickable(false);
+        } else {
+            following.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), FollowersActivity.class);
+                    intent.putExtra("id", profileid);
+                    intent.putExtra("title", "following");
+                    startActivity(intent);
+                }
+            });
+
+            followers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), FollowersActivity.class);
+                    intent.putExtra("id", profileid);
+                    intent.putExtra("title", "followers");
+                    startActivity(intent);
+                }
+            });
         }
 
         // Set all the info on these pages.
@@ -139,7 +160,6 @@ public class ProfileFragment extends Fragment {
         my_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(intent);
             }
@@ -149,12 +169,10 @@ public class ProfileFragment extends Fragment {
         my_communities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Test", "onClick: ");
                 Intent intent = new Intent(getActivity(), MyCommunityActivity.class);
                 startActivity(intent);
             }
         });
-
 
         return view;
     }

@@ -31,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Set the onClick listenr for the add button.
+        // Set the onClick listener for the add button.
         add = findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
         Bundle intent = getIntent().getExtras();
         if (intent != null) {
             String publisher = intent.getString("publisherid");
+            Boolean isSelf = intent.getBoolean("isself");
 
             SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
             editor.putString("profileid", publisher);
+            editor.putBoolean("isself", isSelf);
             editor.apply();
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

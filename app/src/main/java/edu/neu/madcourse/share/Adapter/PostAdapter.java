@@ -81,7 +81,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
