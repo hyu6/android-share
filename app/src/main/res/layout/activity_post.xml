@@ -52,43 +52,77 @@
         android:padding="8dp"
         android:orientation="vertical">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerInside"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/image_added" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="Choose a community" />
+
+            <Spinner
+                android:id="@+id/community"
+                android:layout_width="wrap_content"
+                android:scrollbarSize="14sp"
+                android:layout_marginStart="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="or create a new community" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="create"
+                android:id="@+id/create"
+                android:textSize="14sp"
+                android:layout_height="40dp"/>
+
+        </LinearLayout>
 
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="Please enter a title"
+            android:hint="Post title"
             android:maxLines="5"
             android:id="@+id/Title" />
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/community"/>
-
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="120dp"
             android:layout_marginTop="15dp"
             android:gravity="top|left"
             android:background="@drawable/custom_button"
-            android:hint="Content"
+            android:hint="Post content"
             android:maxLines="5"
             android:id="@+id/content" />
 
-
-
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_addimage"
+            android:id="@+id/image_added" />
 
     </LinearLayout>
-
 </LinearLayout>
