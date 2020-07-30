@@ -29,7 +29,7 @@ import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
-public class  UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<User> mUsers;
@@ -71,6 +71,7 @@ public class  UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 SharedPreferences.Editor editor =
                         mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
                 editor.putString("profileid", user.getId());
+                editor.putBoolean("isself", false);
                 editor.apply();
 
                 ((FragmentActivity) mContext).getSupportFragmentManager()

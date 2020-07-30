@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,11 +42,11 @@ public class ProfileFragment extends Fragment {
     ImageView image_profile;
     TextView posts, followers, following, fullname, bio, username, location;
     Button edit_profile;
+    LinearLayout selfLayout;
 
     FirebaseUser firebaseUser;
     String profileid;
-
-    ImageButton my_photos;
+    Boolean isSelf;
 
     private LinearLayout my_posts;
     private LinearLayout my_settings;
@@ -63,6 +62,7 @@ public class ProfileFragment extends Fragment {
 
         SharedPreferences prefs = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         profileid = prefs.getString("profileid", "none");
+        isSelf = prefs.getBoolean("isself", false);
 
         image_profile = view.findViewById(R.id.image_profile);
         posts = (TextView) view.findViewById(R.id.posts);
@@ -73,7 +73,11 @@ public class ProfileFragment extends Fragment {
         bio = view.findViewById(R.id.bio);
         edit_profile = view.findViewById(R.id.edit_profile);
         location = view.findViewById(R.id.location);
+        selfLayout = view.findViewById(R.id.self_layout);
 
+        if (!isSelf) {
+            selfLayout.setVisibility(View.GONE);
+        }
 
         // Set all the info on these pages.
         userInfo();
