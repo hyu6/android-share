@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +67,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
         community_image = findViewById(R.id.community_image);
         description = findViewById(R.id.description);
         creator_name = findViewById(R.id.creator_name);
+        creator_profile = findViewById(R.id.creator_profile);
 
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference("Users").child(creatorId);
@@ -78,6 +78,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 creator_name.setText(user.getUsername());
+                Glide.with(getBaseContext()).load(user.getImageurl()).into(creator_profile);
             }
 
             @Override
