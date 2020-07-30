@@ -48,12 +48,11 @@ public class CommunityFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+
+//        RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+//        recyclerView.addItemDecoration(divider);
 
         // Inflate the adapter to the RecycleView.
         communities = new ArrayList<>();

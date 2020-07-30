@@ -68,7 +68,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 setCreator(community.getCreator(), holder.creator);
 
 
-                isSubscribed(firebaseUser.getUid(), holder.subscribe, community.getCommunityId());
+                isSubscribed(holder.subscribe, community.getCommunityId());
             }
 
             @Override
@@ -131,7 +131,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     // Check whether the current user subscribes this community.
-    private void isSubscribed(final String userid, final Button button, final String communityId) {
+    private void isSubscribed(final Button button, final String communityId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Subscribe")
                 .child(firebaseUser.getUid())
