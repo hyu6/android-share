@@ -25,6 +25,7 @@ import java.util.List;
 
 import edu.neu.madcourse.share.CommunityDetailActivity;
 import edu.neu.madcourse.share.Model.Community;
+import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
@@ -63,8 +64,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 // Set the image of the community.
                 Glide.with(context).load(community.getImage()).into(holder.image);
 
-                // Set the description of the community.
-                holder.description.setText(community.getDescription());
+                // Set the creator of the community.
+                setCreator(community.getCreator(), holder.creator);
+
 
                 isSubscribed(firebaseUser.getUid(), holder.subscribe, community.getCommunityId());
             }
@@ -114,7 +116,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, description;
+        public TextView name, creator;
         public ImageView image;
         public Button subscribe;
 
@@ -123,7 +125,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
             name = itemView.findViewById(R.id.community_title);
             image = itemView.findViewById(R.id.community_image);
-            description = itemView.findViewById(R.id.description);
+            creator = itemView.findViewById(R.id.creator);
             subscribe = itemView.findViewById(R.id.subscribe);
         }
     }
@@ -143,6 +145,24 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 } else {
                     button.setText("Subscribe");
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setCreator(String userID, final TextView creator){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(userID);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                creator.setText(user.getUsername());
             }
 
             @Override
