@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/lightBlue"
             app:contentInsetStart="0dp"
             app:contentInsetEnd="0dp">
 

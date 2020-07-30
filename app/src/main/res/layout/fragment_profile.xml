@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/lightBlue"
             android:id="@+id/toolbar">
 
             <RelativeLayout
@@ -192,6 +192,12 @@
                     android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
+
+            <View android:background="#B3B3B3"
+                android:layout_width = "match_parent"
+                android:layout_below="@+id/mid_bar"
+                android:id="@+id/divider"
+                android:layout_height="1dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

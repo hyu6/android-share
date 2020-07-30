@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bar"
-        android:background="?android:windowBackground">
+        android:background="?android:attr/windowBackground">
 
         <Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:windowBackground"
+            android:background="@color/lightBlue"
             android:contentInsetStart="0dp"
             android:contentInsetEnd="0dp">
 

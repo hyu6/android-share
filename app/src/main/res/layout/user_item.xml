@@ -41,7 +41,7 @@
         android:layout_height="30dp"
         android:background="@drawable/button_background"
         android:id="@+id/btn_follow"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/lightBlue"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:visibility="gone" />
