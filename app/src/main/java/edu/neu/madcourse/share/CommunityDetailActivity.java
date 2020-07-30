@@ -53,6 +53,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+        toolbar.setBackgroundColor(getResources().getColor(R.color.lightBlue));
 
         // Get the Id.
         Intent intent = getIntent();
@@ -63,7 +64,6 @@ public class CommunityDetailActivity extends AppCompatActivity {
         community_image = findViewById(R.id.community_image);
         description = findViewById(R.id.description);
         creator_name = findViewById(R.id.creator_name);
-        creator_profile = findViewById(R.id.creator_profile);
 
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference("Users").child(creatorId);
@@ -74,7 +74,6 @@ public class CommunityDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 creator_name.setText(user.getUsername());
-                Glide.with(getBaseContext()).load(user.getImageurl()).into(creator_profile);
             }
 
             @Override

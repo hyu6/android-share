@@ -12,10 +12,12 @@
         android:id="@+id/toolbar"
         android:background="?android:attr/windowBackground" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
+        android:background="@color/lightBlue"
+        android:orientation="horizontal"
         android:id="@+id/community_info">
 
         <ImageView
@@ -26,36 +28,42 @@
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/creator"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/creator"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="Creator: "
+                    android:layout_marginEnd="8dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/subscribe"
+                    android:text="Subscribe"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="Creator: "
-                android:layout_marginEnd="8dp" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/creator_profile"
-                android:src="@mipmap/ic_launcher"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:id="@+id/creator_name"
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimaryDark"
@@ -63,14 +71,32 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+
+    </LinearLayout>
+
+    <View android:background="#B3B3B3"
+        android:layout_width = "match_parent"
+        android:layout_below="@+id/community_info"
+        android:id="@+id/divider"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/description_note"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/divider"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:text="Community description: "/>
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_below="@id/community_info"
+        android:layout_below="@id/description_note"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="5dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -78,11 +104,17 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp" />
 
+    <View android:background="#B3B3B3"
+        android:layout_width = "match_parent"
+        android:layout_below="@+id/description"
+        android:id="@+id/divider2"
+        android:layout_height="1dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/description"
+        android:layout_below="@id/divider2"
         android:id="@+id/recycler_view" />
 
 </RelativeLayout>
