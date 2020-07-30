@@ -40,7 +40,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community_detail_acitvity);
+        setContentView(R.layout.activity_community_detail);
 
         // ToolBar
         Toolbar toolbar = findViewById(R.id.toolbar);

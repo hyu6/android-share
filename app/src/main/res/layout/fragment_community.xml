@@ -28,8 +28,7 @@
                 android:id="@+id/search_bar"
                 android:background="@android:color/transparent"
                 android:hint="Search community..."
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginStart="20dp" />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
