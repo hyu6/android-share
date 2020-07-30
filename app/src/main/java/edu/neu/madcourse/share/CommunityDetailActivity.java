@@ -3,6 +3,7 @@ package edu.neu.madcourse.share;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +33,9 @@ import edu.neu.madcourse.share.Model.User;
 public class CommunityDetailActivity extends AppCompatActivity {
     String communityId;
     String creatorId;
-    TextView community_title, description, creator_name;
+    String communityName;
+    TextView description, creator_name;
+    Button subscribe;
     ImageView community_image, creator_profile;
     List<Post> posts;
     private RecyclerView recyclerView;
@@ -40,12 +44,11 @@ public class CommunityDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community_detail_acitvity);
+        setContentView(R.layout.activity_community_detail);
 
         // ToolBar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Community Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +56,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+        toolbar.setBackgroundColor(getResources().getColor(R.color.lightBlue));
 
         // Get the Id.
         Intent intent = getIntent();
@@ -60,7 +64,6 @@ public class CommunityDetailActivity extends AppCompatActivity {
         creatorId = intent.getStringExtra("creatorId");
 
         // Find the component.
-        community_title = findViewById(R.id.community_title);
         community_image = findViewById(R.id.community_image);
         description = findViewById(R.id.description);
         creator_name = findViewById(R.id.creator_name);
@@ -74,7 +77,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                creator_name.setText("Created by: " + user.getUsername());
+                creator_name.setText(user.getUsername());
                 Glide.with(getBaseContext()).load(user.getImageurl()).into(creator_profile);
             }
 
@@ -104,6 +107,54 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
         postAdapter = new PostAdapter(this, posts);
         recyclerView.setAdapter(postAdapter);
+
+
+        //set subscribe button
+        subscribe = findViewById(R.id.subscribe);
+        final String mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        isSubscribed(communityId, mUid);
+        subscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (subscribe.getText().toString().equals("Subscribe")) {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Subscribe")
+                            .child(mUid)
+                            .child(communityId)
+                            .setValue(true);
+                } else {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Subscribe")
+                            .child(mUid)
+                            .child(communityId)
+                            .removeValue();
+                }
+            }
+        });
+    }
+
+    // Check whether the current user subscribes this community.
+    private void isSubscribed(final String communityId, String uid) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Subscribe")
+                .child(uid)
+                .child(communityId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    subscribe.setText("Unsubscribe");
+                } else {
+                    subscribe.setText("Subscribe");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getPosts() {
@@ -116,7 +167,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
 
-                    if (post != null && post.getCommunity() != null && post.getCommunity().equals(community_title.getText().toString())) {
+                    if (post != null && post.getCommunity() != null && post.getCommunity().equals(communityName)) {
                         posts.add(post);
                     }
                 }
@@ -138,9 +189,10 @@ public class CommunityDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Community community = snapshot.getValue(Community.class);
-                community_title.setText(community.getName().toString());
+                communityName = community.getName();
+                getSupportActionBar().setTitle(communityName);
                 Glide.with(getBaseContext()).load(community.getImage()).into(community_image);
-                description.setText(community.getDescription().toString());
+                description.setText(community.getDescription());
             }
 
             @Override

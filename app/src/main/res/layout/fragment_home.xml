@@ -10,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bar"
-        android:background="?android:windowBackground">
+        android:background="?android:attr/windowBackground">
 
         <Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:windowBackground">
+            android:background="@color/lightBlue"
+            android:contentInsetStart="0dp"
+            android:contentInsetEnd="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -25,10 +27,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HOME"
-                    android:layout_marginEnd="10dp"
+                    android:text="Home"
                     android:layout_centerInParent="true"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </Toolbar>
@@ -40,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
-        android:layout_alignParentBottom="true"
-         />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

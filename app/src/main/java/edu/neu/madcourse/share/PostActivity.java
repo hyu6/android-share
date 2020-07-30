@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -52,6 +53,7 @@ public class PostActivity extends AppCompatActivity {
     EditText title;
     EditText content;
     Spinner community;
+    Button create;
     String[] communities;
 
     @Override
@@ -65,6 +67,7 @@ public class PostActivity extends AppCompatActivity {
         title = findViewById(R.id.Title);
         content = findViewById(R.id.content);
         community = findViewById(R.id.community);
+        create = findViewById(R.id.create);
 
         // Choose from the communities.
         setSpinners();
@@ -86,9 +89,24 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        CropImage.activity()
-                .setAspectRatio(1, 1)
-                .start(PostActivity.this);
+        image_added.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity()
+                        .setAspectRatio(1, 1)
+                        .start(PostActivity.this);
+            }
+        });
+
+
+        //create new community
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PostActivity.this, CommunityActivity.class));
+            }
+        });
+
     }
 
     // Set the spinners.

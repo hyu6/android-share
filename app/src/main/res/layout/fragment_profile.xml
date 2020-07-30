@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/lightBlue"
             android:id="@+id/toolbar">
 
             <RelativeLayout
@@ -40,7 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bar">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -194,40 +193,17 @@
 
             </LinearLayout>
 
+            <View android:background="#B3B3B3"
+                android:layout_width = "match_parent"
+                android:layout_below="@+id/mid_bar"
+                android:id="@+id/divider"
+                android:layout_height="1dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/my_posts"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_post" />
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:paddingLeft="10dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="My Posts" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_right" />
-
-                </LinearLayout>
+                android:orientation="vertical"
+                android:id="@+id/self_layout">
 
                 <LinearLayout
                     android:gravity="center"
@@ -248,7 +224,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="My Community" />
+                        android:text="My Communities" />
 
                     <ImageView
                         android:layout_width="20dp"

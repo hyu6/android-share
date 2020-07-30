@@ -5,49 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bar"
-        android:background="?android:windowBackground">
+        android:background="?android:attr/windowBackground">
 
-        <Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:windowBackground">
+            android:background="@color/lightBlue">
 
-            <RelativeLayout
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search" />
+
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/search_bar"
+                android:background="@android:color/transparent"
+                android:hint="Search community..."
+                android:layout_marginStart="20dp" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="40dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="20dp"
-                    android:src="@mipmap/ic_launcher"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Community"
-                    android:layout_centerInParent="true"
-                    android:textSize="24sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_create"
-                    android:id="@+id/create"
-                    android:layout_marginRight="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
-        </Toolbar>
-
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -55,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

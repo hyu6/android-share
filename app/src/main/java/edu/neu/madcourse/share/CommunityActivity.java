@@ -32,6 +32,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.util.ArrayList;
 
 import edu.neu.madcourse.share.Model.Community;
+import edu.neu.madcourse.share.Model.Post;
 
 public class CommunityActivity extends AppCompatActivity {
 
@@ -137,7 +138,7 @@ public class CommunityActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(CommunityActivity.this, MainActivity.class));
+                        startActivity(new Intent(CommunityActivity.this, PostActivity.class));
                         finish();
                     } else {
                         Toast.makeText(CommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
