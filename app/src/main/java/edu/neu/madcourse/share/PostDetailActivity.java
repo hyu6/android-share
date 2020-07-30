@@ -45,6 +45,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private TextView author_name;
     private ImageView author_profile;
     private ImageView post_img;
+    private ImageView image_profile;
 
     private ImageView like;
     private ImageView save;
@@ -81,7 +82,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         post_title = findViewById(R.id.post_title);
         post_content = findViewById(R.id.post_content);
-        author_profile = findViewById(R.id.image_profile);
+        author_profile = findViewById(R.id.author_profile);
         author_name = findViewById(R.id.username);
         post_img = findViewById(R.id.post_img);
 
@@ -90,6 +91,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
         like_num = findViewById(R.id.like_num);
         comment_num = findViewById(R.id.comment_num);
+
+        image_profile = findViewById(R.id.image_profile);
 
         getLikes(postID, like);
         like.setOnClickListener(new View.OnClickListener() {
@@ -153,9 +156,10 @@ public class PostDetailActivity extends AppCompatActivity {
         //count likes
         countLikes(postID, like_num);
 
-
         //count comments
         countComments(postID, comment_num);
+
+        getImageProfile();
     }
 
     private void isSaved(final String postID, final ImageView imageView) {
@@ -314,7 +318,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void readComments() {
@@ -331,6 +334,26 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
 
                 commentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getImageProfile() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
+                .child(firebaseUser.getUid());
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if (getBaseContext() != null && user.getImageurl() != null) {
+                    Glide.with(getBaseContext()).load(user.getImageurl()).into(image_profile);
+                }
             }
 
             @Override
