@@ -3,6 +3,7 @@ package edu.neu.madcourse.share;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +36,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
     String creatorId;
     String communityName;
     TextView description, creator_name;
+    Button subscribe;
     ImageView community_image, creator_profile;
     List<Post> posts;
     private RecyclerView recyclerView;
@@ -102,6 +106,54 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
         postAdapter = new PostAdapter(this, posts);
         recyclerView.setAdapter(postAdapter);
+
+
+        //set subscribe button
+        subscribe = findViewById(R.id.subscribe);
+        final String mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        isSubscribed(communityId, mUid);
+        subscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (subscribe.getText().toString().equals("Subscribe")) {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Subscribe")
+                            .child(mUid)
+                            .child(communityId)
+                            .setValue(true);
+                } else {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Subscribe")
+                            .child(mUid)
+                            .child(communityId)
+                            .removeValue();
+                }
+            }
+        });
+    }
+
+    // Check whether the current user subscribes this community.
+    private void isSubscribed(final String communityId, String uid) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Subscribe")
+                .child(uid)
+                .child(communityId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    subscribe.setText("Unsubscribe");
+                } else {
+                    subscribe.setText("Subscribe");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getPosts() {
