@@ -47,7 +47,6 @@ public class ProfileFragment extends Fragment {
     String profileid;
     Boolean isSelf;
 
-    private LinearLayout my_posts;
     private LinearLayout my_settings;
     private LinearLayout my_favorites;
     private LinearLayout my_communities;
@@ -76,8 +75,8 @@ public class ProfileFragment extends Fragment {
 
         if (!isSelf) {
             selfLayout.setVisibility(View.GONE);
-            following.setClickable(false);
-            followers.setClickable(false);
+//            following.setClickable(false);
+//            followers.setClickable(false);
         } else {
             following.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,6 +98,15 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
+
+        // Posts
+        posts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyPostsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Set all the info on these pages.
         userInfo();
@@ -132,16 +140,6 @@ public class ProfileFragment extends Fragment {
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
                             .child("followers").child(firebaseUser.getUid()).removeValue();
                 }
-            }
-        });
-
-        //set my posts on click listener
-        my_posts = (LinearLayout) view.findViewById(R.id.my_posts);
-        my_posts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyPostsActivity.class);
-                startActivity(intent);
             }
         });
 

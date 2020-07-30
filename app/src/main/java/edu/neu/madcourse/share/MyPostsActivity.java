@@ -1,15 +1,14 @@
 package edu.neu.madcourse.share;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +37,7 @@ public class MyPostsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Posts");
+        getSupportActionBar().setTitle("Posts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +59,6 @@ public class MyPostsActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(divider);
 
 
-
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(getBaseContext(), posts);
         recyclerView.setAdapter(postAdapter);
@@ -69,15 +67,15 @@ public class MyPostsActivity extends AppCompatActivity {
 
     }
 
-    private void getMyPosts(){
+    private void getMyPosts() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 posts.clear();
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
-                    if (post != null &&  post.getAuthorID() != null && post.getAuthorID().equals(curUserID)) {
+                    if (post != null && post.getAuthorID() != null && post.getAuthorID().equals(curUserID)) {
                         posts.add(post);
                     }
                 }

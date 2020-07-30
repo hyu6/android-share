@@ -44,7 +44,6 @@ public class FollowersActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +66,11 @@ public class FollowersActivity extends AppCompatActivity {
 //                getLikes();
 //                break;
             case "following":
+                getSupportActionBar().setTitle("Following");
                 getFollowing();
                 break;
             case "followers":
+                getSupportActionBar().setTitle("Followers");
                 getFollowers();
                 break;
         }
