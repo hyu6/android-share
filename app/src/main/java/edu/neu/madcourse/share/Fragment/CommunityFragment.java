@@ -71,6 +71,8 @@ public class CommunityFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     getSubscribedCommunities();
+                } else if (s.length() == 1 && s.charAt(0) == '*') {
+                    getAllCommunities();
                 } else {
                     searchCommunities(s.toString().toLowerCase());
                 }

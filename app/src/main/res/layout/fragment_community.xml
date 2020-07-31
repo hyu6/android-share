@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/search_bar"
                 android:background="@android:color/transparent"
-                android:hint="Search community..."
+                android:hint="Search community... (* to show all)"
                 android:layout_marginStart="20dp"
                 android:inputType="text" />
 
