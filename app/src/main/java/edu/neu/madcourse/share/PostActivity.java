@@ -35,7 +35,9 @@ import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edu.neu.madcourse.share.Model.Community;
 import edu.neu.madcourse.share.Model.Post;
@@ -54,6 +56,8 @@ public class PostActivity extends AppCompatActivity {
     Spinner communitySpinner;
     Button create;
     String[] communities;
+    String curUser;
+    Set<String> storedCommunities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,12 @@ public class PostActivity extends AppCompatActivity {
         content = findViewById(R.id.content);
         communitySpinner = findViewById(R.id.community);
         create = findViewById(R.id.create);
+
+        // Get the current user.
+        curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        storedCommunities = new HashSet<>();
+
+        getSubscribeCommunities(curUser);
 
         // Choose from the communities.
         setSpinners();
@@ -108,6 +118,26 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
+    // Get the communities which the curUser subscribe.
+    private void getSubscribeCommunities(String curUser) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe").child(curUser);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    String tempId = data.getKey();
+                    storedCommunities.add(tempId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     // Set the spinners.
     private void setSpinners() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
@@ -117,7 +147,9 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    list.add(data.getValue(Community.class).getName());
+                    if (storedCommunities.contains(data.getValue(Community.class).getCommunityId())) {
+                        list.add(data.getValue(Community.class).getName());
+                    }
                 }
 
                 // Convert the list to the array.
