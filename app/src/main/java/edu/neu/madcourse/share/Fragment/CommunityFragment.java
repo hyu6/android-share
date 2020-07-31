@@ -58,9 +58,6 @@ public class CommunityFragment extends Fragment {
         communityAdapter = new CommunityAdapter(getContext(), communities);
         recyclerView.setAdapter(communityAdapter);
 
-//        Log.d("Test", "onCreateView: attached the textView already." + communities.size());
-
-
         //set search application
         searchBar = view.findViewById(R.id.search_bar);
         searchBar.addTextChangedListener(new TextWatcher() {
