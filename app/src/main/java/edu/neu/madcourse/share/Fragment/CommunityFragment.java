@@ -84,7 +84,8 @@ public class CommunityFragment extends Fragment {
     }
 
     private void searchCommunities(String s) {
-        Query query = FirebaseDatabase.getInstance().getReference("Communities").orderByChild("name")
+        Query query = FirebaseDatabase.getInstance().getReference("Communities")
+                .orderByChild("name")
                 .startAt(s)
                 .endAt(s + "\uf8ff");
 

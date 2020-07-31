@@ -54,7 +54,8 @@ public class MyCommunityActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
 
         communityList = new ArrayList<>();
@@ -67,7 +68,8 @@ public class MyCommunityActivity extends AppCompatActivity {
 
     private void getMyCommunities() {
         final List<String> myCommunities = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe").child(curUserID);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe")
+                .child(curUserID);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,7 +77,7 @@ public class MyCommunityActivity extends AppCompatActivity {
                     myCommunities.add(dataSnapshot.getKey());
                 }
 
-                AddCommunities(myCommunities);
+                addCommunities(myCommunities);
             }
 
             @Override
@@ -85,8 +87,9 @@ public class MyCommunityActivity extends AppCompatActivity {
         });
     }
 
-    private void AddCommunities(final List<String> myCommunities) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Communities");
+    private void addCommunities(final List<String> myCommunities) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Communities");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
