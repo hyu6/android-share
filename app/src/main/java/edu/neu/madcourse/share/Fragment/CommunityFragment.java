@@ -1,6 +1,5 @@
 package edu.neu.madcourse.share.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,9 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.neu.madcourse.share.Adapter.CommunityAdapter;
-import edu.neu.madcourse.share.CommunityActivity;
 import edu.neu.madcourse.share.Model.Community;
-import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
 public class CommunityFragment extends Fragment {
@@ -66,7 +61,6 @@ public class CommunityFragment extends Fragment {
 //        Log.d("Test", "onCreateView: attached the textView already." + communities.size());
 
 
-
         //set search application
         searchBar = view.findViewById(R.id.search_bar);
         searchBar.addTextChangedListener(new TextWatcher() {
@@ -90,7 +84,7 @@ public class CommunityFragment extends Fragment {
     }
 
     private void searchCommunities(String s) {
-        Query query = FirebaseDatabase.getInstance().getReference("Community").orderByChild("name")
+        Query query = FirebaseDatabase.getInstance().getReference("Communities").orderByChild("name")
                 .startAt(s)
                 .endAt(s + "\uf8ff");
 
@@ -114,14 +108,13 @@ public class CommunityFragment extends Fragment {
     }
 
     private void getCommunities() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 communities.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Community community = dataSnapshot.getValue(Community.class);
-//                    Log.d("Test", "onDataChange: " + community.getName());
                     communities.add(community);
                 }
                 communityAdapter.notifyDataSetChanged();

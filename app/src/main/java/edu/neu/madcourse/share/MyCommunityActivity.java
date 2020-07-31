@@ -65,13 +65,13 @@ public class MyCommunityActivity extends AppCompatActivity {
         getMyCommunities();
     }
 
-    private void getMyCommunities(){
+    private void getMyCommunities() {
         final List<String> myCommunities = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe").child(curUserID);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     myCommunities.add(dataSnapshot.getKey());
                 }
 
@@ -86,15 +86,15 @@ public class MyCommunityActivity extends AppCompatActivity {
     }
 
     private void AddCommunities(final List<String> myCommunities) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Community");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Communities");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 communityList.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Community community = dataSnapshot.getValue(Community.class);
-                    for (String communityId: myCommunities){
-                        if (communityId.equals(community.getCommunityId())){
+                    for (String communityId : myCommunities) {
+                        if (communityId.equals(community.getCommunityId())) {
                             communityList.add(community);
                         }
                     }

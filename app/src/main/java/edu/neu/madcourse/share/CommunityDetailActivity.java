@@ -183,7 +183,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
     // Set the value of the community details
     private void getCommunity() {
         DatabaseReference ref = FirebaseDatabase.getInstance()
-                .getReference("Community").child(communityId);
+                .getReference("Communities").child(communityId);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

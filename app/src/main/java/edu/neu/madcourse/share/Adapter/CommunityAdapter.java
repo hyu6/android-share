@@ -53,7 +53,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         // Set the title of the community.
         holder.name.setText(community.getName());
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community")
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities")
                 .child(community.getCommunityId());
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -154,7 +154,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         });
     }
 
-    private void setCreator(String userID, final TextView creator){
+    private void setCreator(String userID, final TextView creator) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Users").child(userID);
 
