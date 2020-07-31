@@ -89,7 +89,8 @@
             android:id="@+id/fullname"
             android:hint="Full Name"
             android:layout_marginTop="20dp"
-            app:met_floatingLabel="normal" />
+            app:met_floatingLabel="normal"
+            android:inputType="text" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -97,7 +98,8 @@
             android:id="@+id/username"
             android:hint="Username"
             android:layout_marginTop="20dp"
-            app:met_floatingLabel="normal" />
+            app:met_floatingLabel="normal"
+            android:inputType="text" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"

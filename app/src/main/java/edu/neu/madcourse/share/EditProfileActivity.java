@@ -130,6 +130,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         username.getText().toString(),
                         bio.getText().toString(),
                         location.getText().toString());
+                finish();
             }
         });
 
@@ -152,9 +153,6 @@ public class EditProfileActivity extends AppCompatActivity {
         hashMap.put("location", location);
 
         reference.updateChildren(hashMap);
-
-        // Bring backs to the main activity.
-        startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
     }
 
     private String getFileExtension(Uri uri) {

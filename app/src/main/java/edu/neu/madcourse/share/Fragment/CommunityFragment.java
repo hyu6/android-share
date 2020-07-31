@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,13 +54,10 @@ public class CommunityFragment extends Fragment {
         communities = new ArrayList<>();
 
         // Add values to the communities ArrayList.
-        getCommunities();
+        getSubscribedCommunities();
 
         communityAdapter = new CommunityAdapter(getContext(), communities);
         recyclerView.setAdapter(communityAdapter);
-
-//        Log.d("Test", "onCreateView: attached the textView already." + communities.size());
-
 
         //set search application
         searchBar = view.findViewById(R.id.search_bar);
@@ -71,7 +69,13 @@ public class CommunityFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchCommunities(s.toString().toLowerCase());
+                if (s.length() == 0) {
+                    getSubscribedCommunities();
+                } else if (s.length() == 1 && s.charAt(0) == '*') {
+                    getAllCommunities();
+                } else {
+                    searchCommunities(s.toString().toLowerCase());
+                }
             }
 
             @Override
@@ -84,7 +88,8 @@ public class CommunityFragment extends Fragment {
     }
 
     private void searchCommunities(String s) {
-        Query query = FirebaseDatabase.getInstance().getReference("Communities").orderByChild("name")
+        Query query = FirebaseDatabase.getInstance().getReference("Communities")
+                .orderByChild("name")
                 .startAt(s)
                 .endAt(s + "\uf8ff");
 
@@ -107,7 +112,55 @@ public class CommunityFragment extends Fragment {
         });
     }
 
-    private void getCommunities() {
+    private void getSubscribedCommunities() {
+        final List<String> myCommunities = new ArrayList<>();
+        final String curUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe")
+                .child(curUserID);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    myCommunities.add(dataSnapshot.getKey());
+                }
+
+                addCommunities(myCommunities);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void addCommunities(final List<String> myCommunities) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Communities");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                communities.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Community community = dataSnapshot.getValue(Community.class);
+                    for (String communityId : myCommunities) {
+                        assert community != null;
+                        if (communityId.equals(community.getCommunityId())) {
+                            communities.add(community);
+                        }
+                    }
+                }
+                communityAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getAllCommunities() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
