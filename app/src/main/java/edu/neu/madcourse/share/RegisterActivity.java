@@ -102,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("location", "");
 
                             // HashMap put image url
+                            hashMap.put("imageurl", "https://images.vexels.com/media/users/3/137047/isolated/preview/5831a17a290077c646a48c4db78a81bb-user-profile-blue-icon-by-vexels.png");
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
