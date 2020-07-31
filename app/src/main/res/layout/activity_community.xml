@@ -32,13 +32,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Create"
+                    android:text="CREATE"
                     android:id="@+id/create"
                     android:textSize="16sp"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimary" />
 
             </RelativeLayout>
 
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="Please enter a name"
+            android:hint="Community name"
             android:id="@+id/name"
             android:inputType="text" />
 
@@ -72,9 +72,10 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_marginTop="15dp"
+            android:padding="5dp"
             android:gravity="top|left"
             android:background="@drawable/custom_button"
-            android:hint="Please enter the description of this Community"
+            android:hint="Community description"
             android:maxLines="5"
             android:id="@+id/description" />
 
