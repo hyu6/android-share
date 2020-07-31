@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -32,7 +31,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.util.ArrayList;
 
 import edu.neu.madcourse.share.Model.Community;
-import edu.neu.madcourse.share.Model.Post;
 
 public class CommunityActivity extends AppCompatActivity {
 
@@ -90,18 +88,11 @@ public class CommunityActivity extends AppCompatActivity {
         progressDialog.setMessage("Posting");
         progressDialog.show();
 
-        Log.d("Test", "uploadImage: " + imageUri);
         if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(
                     System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
-            // Test Code
-//            Log.d("Test", "uploadImage: " + fileReference);
-
             uploadTask = fileReference.putFile(imageUri);
-
-            // Test Code
-//            Log.d("Test", "uploadImage: " + uploadTask);
 
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -119,7 +110,7 @@ public class CommunityActivity extends AppCompatActivity {
                         Uri downloadUri = task.getResult();
                         myUrl = downloadUri.toString();
 
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Community");
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Communities");
 
                         String communityId = reference.push().getKey();
 
@@ -127,7 +118,7 @@ public class CommunityActivity extends AppCompatActivity {
                         Community newCommunity = new Community();
 
                         newCommunity.setCommunityId(communityId);
-                        newCommunity.setName(name.getText().toString());
+                        newCommunity.setName(name.getText().toString().toLowerCase());
                         newCommunity.setCreator(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         newCommunity.setImage(myUrl);
                         newCommunity.setDescription(description.getText().toString());

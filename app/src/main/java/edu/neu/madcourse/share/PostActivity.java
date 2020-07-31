@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
@@ -52,7 +51,7 @@ public class PostActivity extends AppCompatActivity {
     TextView post;
     EditText title;
     EditText content;
-    Spinner community;
+    Spinner communitySpinner;
     Button create;
     String[] communities;
 
@@ -66,7 +65,7 @@ public class PostActivity extends AppCompatActivity {
         post = findViewById(R.id.post);
         title = findViewById(R.id.Title);
         content = findViewById(R.id.content);
-        community = findViewById(R.id.community);
+        communitySpinner = findViewById(R.id.community);
         create = findViewById(R.id.create);
 
         // Choose from the communities.
@@ -111,7 +110,7 @@ public class PostActivity extends AppCompatActivity {
 
     // Set the spinners.
     private void setSpinners() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
         final List<String> list = new ArrayList<>();
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -128,8 +127,7 @@ public class PostActivity extends AppCompatActivity {
                 }
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostActivity.this, android.R.layout.simple_spinner_item, communities);
-
-                community.setAdapter(adapter);
+                communitySpinner.setAdapter(adapter);
             }
 
             @Override
@@ -146,23 +144,16 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void setPost(final String communityName) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Community");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    Log.d("Test", data.toString());
                     Community community = data.getValue(Community.class);
-
-                    Log.d("Test", communityName + " versus " + community.getName());
 
                     if (community.getName().equals(communityName)) {
                         community.getPosts().add(community.getCommunityId());
-                    }
-
-                    for (String s : community.getPosts()) {
-                        Log.d("Add the name", "onDataChange: " + s);
                     }
                 }
             }
@@ -179,18 +170,11 @@ public class PostActivity extends AppCompatActivity {
         progressDialog.setMessage("Posting");
         progressDialog.show();
 
-        Log.d("Test", "uploadImage: " + imageUri);
         if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(
                     System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
-            // Test Code
-//            Log.d("Test", "uploadImage: " + fileReference);
-
             uploadTask = fileReference.putFile(imageUri);
-
-            // Test Code
-//            Log.d("Test", "uploadImage: " + uploadTask);
 
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -212,14 +196,13 @@ public class PostActivity extends AppCompatActivity {
 
                         String postId = reference.push().getKey();
 
-
                         final Post newPost = new Post();
                         newPost.setPostID(postId);
                         newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         newPost.setPostContent(content.getText().toString());
                         newPost.setPostIMG(myUrl);
                         newPost.setTitle(title.getText().toString());
-                        newPost.setCommunity(community.getSelectedItem().toString());
+                        newPost.setCommunity(communitySpinner.getSelectedItem().toString());
 
                         reference.child(postId).setValue(newPost);
 
