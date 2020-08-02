@@ -26,6 +26,7 @@ import edu.neu.madcourse.share.MainActivity;
 import edu.neu.madcourse.share.Model.Comment;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
+import edu.neu.madcourse.share.UserPageActivity;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
@@ -59,6 +60,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MainActivity.class);
                 intent.putExtra("publisherid", comment.getPublisher());
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, UserPageActivity.class);
+                intent.putExtra("userId", comment.getPublisher());
                 mContext.startActivity(intent);
             }
         });
