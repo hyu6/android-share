@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
     List<Post> posts;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
+    FloatingActionButton add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,19 @@ public class CommunityDetailActivity extends AppCompatActivity {
                             .child(communityId)
                             .removeValue();
                 }
+            }
+        });
+
+
+        //set fab
+        add = findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CommunityDetailActivity.this, PostInCommunityActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("communityID", communityId);
+                startActivity(intent);
             }
         });
     }
