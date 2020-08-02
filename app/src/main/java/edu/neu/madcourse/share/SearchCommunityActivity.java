@@ -1,19 +1,17 @@
-package edu.neu.madcourse.share.Fragment;
+package edu.neu.madcourse.share;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,24 +24,33 @@ import java.util.List;
 
 import edu.neu.madcourse.share.Adapter.CommunityAdapter;
 import edu.neu.madcourse.share.Model.Community;
-import edu.neu.madcourse.share.R;
 
-public class CommunityFragment extends Fragment {
+public class SearchCommunityActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CommunityAdapter communityAdapter;
     private List<Community> communities;
     EditText searchBar;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_community);
 
-        View view = inflater.inflate(R.layout.fragment_community, container, false);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Search Community");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Community setting.
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
@@ -54,13 +61,13 @@ public class CommunityFragment extends Fragment {
         communities = new ArrayList<>();
 
         // Add values to the communities ArrayList.
-        getSubscribedCommunities();
+        getAllCommunities();
 
-        communityAdapter = new CommunityAdapter(getContext(), communities);
+        communityAdapter = new CommunityAdapter(getBaseContext(), communities);
         recyclerView.setAdapter(communityAdapter);
 
         //set search application
-        searchBar = view.findViewById(R.id.search_bar);
+        searchBar = findViewById(R.id.search_bar);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,8 +77,6 @@ public class CommunityFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    getSubscribedCommunities();
-                } else if (s.length() == 1 && s.charAt(0) == '*') {
                     getAllCommunities();
                 } else {
                     searchCommunities(s.toString().toLowerCase());
@@ -83,8 +88,6 @@ public class CommunityFragment extends Fragment {
 
             }
         });
-
-        return view;
     }
 
     private void searchCommunities(String s) {
@@ -107,54 +110,6 @@ public class CommunityFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void getSubscribedCommunities() {
-        final List<String> myCommunities = new ArrayList<>();
-        final String curUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe")
-                .child(curUserID);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    myCommunities.add(dataSnapshot.getKey());
-                }
-
-                addCommunities(myCommunities);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void addCommunities(final List<String> myCommunities) {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("Communities");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                communities.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Community community = dataSnapshot.getValue(Community.class);
-                    for (String communityId : myCommunities) {
-                        assert community != null;
-                        if (communityId.equals(community.getCommunityId())) {
-                            communities.add(community);
-                        }
-                    }
-                }
-                communityAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

@@ -32,14 +32,14 @@ import java.util.ArrayList;
 
 import edu.neu.madcourse.share.Model.Community;
 
-public class CommunityActivity extends AppCompatActivity {
+public class CreateCommunityActivity extends AppCompatActivity {
 
     Uri imageUri;
     String myUrl = "";
     StorageTask uploadTask;
     StorageReference storageReference;
 
-    ImageView close, image_added;
+    ImageView close, addedImage;
     TextView create;
     EditText name;
     EditText description;
@@ -47,10 +47,10 @@ public class CommunityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community);
+        setContentView(R.layout.activity_create_community);
 
         close = findViewById(R.id.close);
-        image_added = findViewById(R.id.image_added);
+        addedImage = findViewById(R.id.added_image);
         create = findViewById(R.id.create);
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
@@ -60,7 +60,6 @@ public class CommunityActivity extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CommunityActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -68,13 +67,18 @@ public class CommunityActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                createCommunity();
             }
         });
 
-        CropImage.activity()
-                .setAspectRatio(1, 1)
-                .start(CommunityActivity.this);
+        addedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity()
+                        .setAspectRatio(1, 1)
+                        .start(CreateCommunityActivity.this);
+            }
+        });
     }
 
     private String getFileExtension(Uri uri) {
@@ -83,7 +87,7 @@ public class CommunityActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    private void uploadImage() {
+    private void createCommunity() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Posting");
         progressDialog.show();
@@ -129,16 +133,16 @@ public class CommunityActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(CommunityActivity.this, PostActivity.class));
+                        startActivity(new Intent(CreateCommunityActivity.this, PostActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(CommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateCommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CommunityActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCommunityActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -154,10 +158,10 @@ public class CommunityActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
-            image_added.setImageURI(imageUri);
+            addedImage.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(CommunityActivity.this, MainActivity.class));
+            startActivity(new Intent(CreateCommunityActivity.this, MainActivity.class));
             finish();
         }
     }

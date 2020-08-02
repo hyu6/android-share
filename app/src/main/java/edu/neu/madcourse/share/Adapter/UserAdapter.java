@@ -2,7 +2,6 @@ package edu.neu.madcourse.share.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,15 +24,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import edu.neu.madcourse.share.Fragment.ProfileFragment;
-import edu.neu.madcourse.share.MainActivity;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
+import edu.neu.madcourse.share.UserPageActivity;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<User> mUsers;
+
     private boolean isFragment;
 
     private FirebaseUser firebaseUser;
@@ -72,22 +70,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFragment) {
-                    SharedPreferences.Editor editor =
-                            mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                    editor.putString("profileid", user.getId());
-                    editor.putBoolean("isself", false);
-                    editor.apply();
+//                if (isFragment) {
+//                    SharedPreferences.Editor editor =
+//                            mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+//                    editor.putString("profileid", user.getId());
+//                    editor.putBoolean("isself", false);
+//                    editor.apply();
+//
+//                    ((FragmentActivity) mContext).getSupportFragmentManager()
+//                            .beginTransaction().replace(R.id.fragment_container,
+//                            new ProfileFragment()).commit();
+//                } else {
+//                    Intent intent = new Intent(mContext, MainActivity.class);
+//                    intent.putExtra("publisherid", user.getId());
+//                    intent.putExtra("isself", false);
+//                    mContext.startActivity(intent);
+//                }
 
-                    ((FragmentActivity) mContext).getSupportFragmentManager()
-                            .beginTransaction().replace(R.id.fragment_container,
-                            new ProfileFragment()).commit();
-                } else {
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    intent.putExtra("publisherid", user.getId());
-                    intent.putExtra("isself", false);
-                    mContext.startActivity(intent);
-                }
+                Intent intent = new Intent(mContext, UserPageActivity.class);
+                intent.putExtra("userId", user.getId());
+                mContext.startActivity(intent);
             }
         });
 

@@ -50,7 +50,7 @@
                     android:id="@+id/save"
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/darkBlue"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
@@ -80,7 +80,7 @@
             android:text="Change Photo"
             android:layout_gravity="center"
             android:id="@+id/tv_change"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/darkBlue"
             android:textSize="16sp" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -141,7 +141,7 @@
                 android:id="@+id/update"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/darkBlue"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 

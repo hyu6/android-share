@@ -1,7 +1,6 @@
 package edu.neu.madcourse.share;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -37,7 +36,7 @@ public class MyCommunityActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Communities");
+        getSupportActionBar().setTitle("Created Communities");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,19 +61,20 @@ public class MyCommunityActivity extends AppCompatActivity {
         communityAdapter = new CommunityAdapter(getBaseContext(), communityList);
         recyclerView.setAdapter(communityAdapter);
 
-        Log.d("Com", "onDataChange: " + "enter");
         getMyCommunities();
     }
 
     private void getMyCommunities() {
         final List<String> myCommunities = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe")
-                .child(curUserID);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    myCommunities.add(dataSnapshot.getKey());
+                    Community community = dataSnapshot.getValue(Community.class);
+                    if (community.getCreator().equals(curUserID)) {
+                        myCommunities.add(dataSnapshot.getKey());
+                    }
                 }
 
                 addCommunities(myCommunities);

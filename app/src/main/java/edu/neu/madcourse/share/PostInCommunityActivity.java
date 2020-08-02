@@ -7,11 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,59 +31,52 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import edu.neu.madcourse.share.Model.Community;
 import edu.neu.madcourse.share.Model.Post;
 
-public class PostActivity extends AppCompatActivity {
+public class PostInCommunityActivity extends AppCompatActivity {
 
     Uri imageUri;
     String myUrl = "";
+    String communityId = "";
+    String communityName = "";
     StorageTask uploadTask;
     StorageReference storageReference;
 
-    ImageView close, addedImage;
+    ImageView close, image_added;
     TextView post;
+    TextView illustration;
     EditText title;
     EditText content;
-    Spinner communitySpinner;
-    Button create;
-    String[] communities;
     String curUser;
-    Set<String> storedCommunities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_post_in_community);
+
+        Intent intent = getIntent();
+        communityId = intent.getStringExtra("communityID");
+
 
         close = findViewById(R.id.close);
-        addedImage = findViewById(R.id.added_image);
+        image_added = findViewById(R.id.added_image);
         post = findViewById(R.id.post);
         title = findViewById(R.id.Title);
         content = findViewById(R.id.content);
-        communitySpinner = findViewById(R.id.community);
-        create = findViewById(R.id.create);
+        illustration = findViewById(R.id.illustration);
+        setIllustration();
 
         // Get the current user.
         curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        storedCommunities = new HashSet<>();
 
-        getSubscribeCommunities(curUser);
-
-        // Choose from the communities.
-        setSpinners();
 
         storageReference = FirebaseStorage.getInstance().getReference("posts");
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PostActivity.this, MainActivity.class));
+                startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -98,37 +88,27 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        addedImage.setOnClickListener(new View.OnClickListener() {
+        image_added.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CropImage.activity()
                         .setAspectRatio(1, 1)
-                        .start(PostActivity.this);
-            }
-        });
-
-
-        //create new community
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PostActivity.this, CreateCommunityActivity.class));
+                        .start(PostInCommunityActivity.this);
             }
         });
 
     }
 
-    // Get the communities which the curUser subscribe.
-    private void getSubscribeCommunities(String curUser) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe").child(curUser);
+    private void setIllustration() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities").child(communityId);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    String tempId = data.getKey();
-                    storedCommunities.add(tempId);
-                }
+                Community community = snapshot.getValue(Community.class);
+                communityName = community.getName();
+                illustration.setText("Posting to: " + communityName);
             }
 
             @Override
@@ -136,38 +116,10 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
-    // Set the spinners.
-    private void setSpinners() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities");
-        final List<String> list = new ArrayList<>();
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    if (storedCommunities.contains(data.getValue(Community.class).getCommunityId())) {
-                        list.add(data.getValue(Community.class).getName());
-                    }
-                }
-
-                // Convert the list to the array.
-                communities = new String[list.size()];
-                for (int i = 0; i < list.size(); i++) {
-                    communities[i] = list.get(i);
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PostActivity.this, android.R.layout.simple_spinner_item, communities);
-                communitySpinner.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -234,22 +186,22 @@ public class PostActivity extends AppCompatActivity {
                         newPost.setPostContent(content.getText().toString());
                         newPost.setPostIMG(myUrl);
                         newPost.setTitle(title.getText().toString());
-                        newPost.setCommunity(communitySpinner.getSelectedItem().toString());
+                        newPost.setCommunity(communityName);
 
                         reference.child(postId).setValue(newPost);
 
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(PostActivity.this, MainActivity.class));
+                        startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(PostActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostInCommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostInCommunityActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -265,10 +217,10 @@ public class PostActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
-            addedImage.setImageURI(imageUri);
+            image_added.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(PostActivity.this, MainActivity.class));
+            startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
             finish();
         }
     }

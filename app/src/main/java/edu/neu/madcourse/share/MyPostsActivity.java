@@ -58,12 +58,10 @@ public class MyPostsActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
 
-
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(getBaseContext(), posts);
         recyclerView.setAdapter(postAdapter);
         getMyPosts();
-
 
     }
 
