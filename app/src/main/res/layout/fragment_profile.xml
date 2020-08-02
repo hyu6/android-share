@@ -30,6 +30,17 @@
                     android:textColor="@color/colorPrimaryDark" />
 
 
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_addperson"
+                    android:id="@+id/addPerson"
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentRight="true"/>
+
+
+
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -198,6 +209,34 @@
                 android:layout_below="@+id/mid_bar"
                 android:id="@+id/divider"
                 android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_posts"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_post" />
+
+                <TextView
+                    android:textSize="20sp"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="My Posts" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_right" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/login"
         android:text="Log In"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#2196F3"
         android:background="@drawable/button_background"
         android:layout_marginTop="15dp" />
 

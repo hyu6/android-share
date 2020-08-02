@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-import edu.neu.madcourse.share.Fragment.CommunityFragment;
+import edu.neu.madcourse.share.Fragment.CommunitiesFragment;
 import edu.neu.madcourse.share.Fragment.HomeFragment;
 import edu.neu.madcourse.share.Fragment.NotificationFragment;
 import edu.neu.madcourse.share.Fragment.ProfileFragment;
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new SearchFragment();
                             break;
                         case R.id.nav_community:
-                            selectedFragment = new CommunityFragment();
+//                            selectedFragment = new CommunityFragment();
+                            selectedFragment = new CommunitiesFragment();
                             break;
                         case R.id.nav_fav:
                             selectedFragment = new NotificationFragment();

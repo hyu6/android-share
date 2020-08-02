@@ -24,20 +24,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import edu.neu.madcourse.share.EditProfileActivity;
 import edu.neu.madcourse.share.FollowersActivity;
+import edu.neu.madcourse.share.Model.Notification;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.MyCommunityActivity;
 import edu.neu.madcourse.share.MyFavoritesActivity;
 import edu.neu.madcourse.share.MyPostsActivity;
+import edu.neu.madcourse.share.NotificationActivity;
 import edu.neu.madcourse.share.R;
 import edu.neu.madcourse.share.SettingsActivity;
 
 public class ProfileFragment extends Fragment {
 
+
+    ImageView addPerson;
     ImageView image_profile;
     TextView posts, followers, following, fullname, bio, username, location;
     Button edit_profile;
@@ -48,6 +53,7 @@ public class ProfileFragment extends Fragment {
     Boolean isSelf;
 
     private LinearLayout my_settings;
+    private LinearLayout my_posts;
     private LinearLayout my_favorites;
     private LinearLayout my_communities;
 
@@ -61,6 +67,7 @@ public class ProfileFragment extends Fragment {
         SharedPreferences prefs = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         profileid = prefs.getString("profileid", "none");
         isSelf = prefs.getBoolean("isself", false);
+
 
         image_profile = view.findViewById(R.id.image_profile);
         posts = (TextView) view.findViewById(R.id.posts);
@@ -143,6 +150,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+        //set my posts on click listener
+        my_posts = view.findViewById(R.id.my_posts);
+        my_posts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyPostsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         //set my posts on click listener
         my_favorites = (LinearLayout) view.findViewById(R.id.my_favorites);
         my_favorites.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +187,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyCommunityActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //set add person
+        addPerson = view.findViewById(R.id.addPerson);
+        addPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(intent);
             }
         });
