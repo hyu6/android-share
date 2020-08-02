@@ -30,15 +30,13 @@
                     android:textColor="@color/colorPrimaryDark" />
 
 
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_create"
                     android:id="@+id/edit"
                     android:layout_marginEnd="20dp"
-                    android:layout_alignParentRight="true"/>
-
+                    android:layout_alignParentRight="true" />
 
 
             </RelativeLayout>
@@ -142,6 +140,7 @@
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -151,7 +150,7 @@
                         android:id="@+id/fullname"
                         android:textStyle="bold"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimaryDark"/>
+                        android:textColor="@color/colorPrimaryDark" />
 
                     <View
                         android:layout_width="0dp"
@@ -162,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:src="@drawable/ic_map"
                         android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -172,8 +171,7 @@
                         android:layout_margin="10dp"
                         android:id="@+id/location"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimaryDark"/>
-
+                        android:textColor="@color/colorPrimaryDark" />
 
                 </LinearLayout>
 
@@ -187,39 +185,12 @@
 
             </LinearLayout>
 
-            <View android:background="#B3B3B3"
-                android:layout_width = "match_parent"
+            <View
+                android:background="#B3B3B3"
+                android:layout_width="match_parent"
                 android:layout_below="@+id/mid_bar"
                 android:id="@+id/divider"
-                android:layout_height="1dp"/>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/my_posts"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_myposts" />
-
-                <TextView
-                    android:textSize="20sp"
-                    android:paddingLeft="10dp"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="My Posts" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_right" />
-            </LinearLayout>
+                android:layout_height="1dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -231,14 +202,14 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/my_forum"
+                    android:id="@+id/my_posts"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:src="@drawable/ic_forum" />
+                        android:src="@drawable/ic_myposts" />
 
                     <TextView
                         android:textSize="20sp"
@@ -246,14 +217,13 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="My Communities" />
+                        android:text="My Posts" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
                         android:src="@drawable/ic_right" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -276,6 +246,35 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="My Favorites" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/my_forum"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_forum" />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingLeft="10dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Created Communities" />
 
                     <ImageView
                         android:layout_width="20dp"

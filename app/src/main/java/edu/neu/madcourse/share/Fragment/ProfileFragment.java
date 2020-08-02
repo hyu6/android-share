@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
 
     ImageView edit;
     ImageView image_profile;
-    TextView posts, followers, following, fullname, bio, username, location;
+    TextView followers, following, fullname, bio, username, location;
     Button edit_profile;
     LinearLayout selfLayout;
 
@@ -48,10 +48,10 @@ public class ProfileFragment extends Fragment {
     String profileid;
     Boolean isSelf;
 
-    private LinearLayout my_settings;
-    private LinearLayout my_posts;
-    private LinearLayout my_favorites;
-    private LinearLayout my_communities;
+    private LinearLayout settingsLayout;
+    private LinearLayout myPostsLayout;
+    private LinearLayout myFavoritesLayout;
+    private LinearLayout createdCommunitiesLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -158,8 +158,8 @@ public class ProfileFragment extends Fragment {
 //        });
 
         //set my posts on click listener
-        my_posts = view.findViewById(R.id.my_posts);
-        my_posts.setOnClickListener(new View.OnClickListener() {
+        myPostsLayout = view.findViewById(R.id.my_posts);
+        myPostsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyPostsActivity.class);
@@ -168,8 +168,8 @@ public class ProfileFragment extends Fragment {
         });
 
         //set my posts on click listener
-        my_favorites = (LinearLayout) view.findViewById(R.id.my_favorites);
-        my_favorites.setOnClickListener(new View.OnClickListener() {
+        myFavoritesLayout = (LinearLayout) view.findViewById(R.id.my_favorites);
+        myFavoritesLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyFavoritesActivity.class);
@@ -178,8 +178,8 @@ public class ProfileFragment extends Fragment {
         });
 
         //set up my settings
-        my_settings = (LinearLayout) view.findViewById(R.id.my_settings);
-        my_settings.setOnClickListener(new View.OnClickListener() {
+        settingsLayout = (LinearLayout) view.findViewById(R.id.my_settings);
+        settingsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
@@ -187,8 +187,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        my_communities = (LinearLayout) view.findViewById(R.id.my_forum);
-        my_communities.setOnClickListener(new View.OnClickListener() {
+        createdCommunitiesLayout = (LinearLayout) view.findViewById(R.id.my_forum);
+        createdCommunitiesLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyCommunityActivity.class);
