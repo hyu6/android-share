@@ -25,9 +25,11 @@ import java.util.List;
 
 import edu.neu.madcourse.share.Adapter.CommunityAdapter;
 import edu.neu.madcourse.share.Adapter.SingleCommunityAdapter;
+import edu.neu.madcourse.share.CommunityActivity;
 import edu.neu.madcourse.share.Model.Community;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.MyPostsActivity;
+import edu.neu.madcourse.share.PostActivity;
 import edu.neu.madcourse.share.R;
 import edu.neu.madcourse.share.SearchCommunityActivity;
 
@@ -36,6 +38,7 @@ public class CommunitiesFragment extends Fragment {
     private RecyclerView recyclerView;
     private SingleCommunityAdapter communityAdapter;
     private List<Community> communities;
+    private ImageView create;
 
     private ImageView search;
 
@@ -68,6 +71,17 @@ public class CommunitiesFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        //set create button
+
+        create = view.findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CommunityActivity.class));
+            }
+        });
+
 
         return view;
     }
