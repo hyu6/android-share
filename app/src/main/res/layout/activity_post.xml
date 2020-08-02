@@ -38,7 +38,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="#2196F3" />
 
             </RelativeLayout>
 
@@ -93,7 +93,7 @@
                 android:background="@drawable/button_background"
                 android:id="@+id/create"
                 android:text="CREATE"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="#2196F3" />
 
         </LinearLayout>
 
@@ -115,6 +115,12 @@
             android:hint="Post content"
             android:maxLines="5"
             android:id="@+id/content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Add Picture Here: "/>
 
         <ImageView
             android:layout_width="50dp"
