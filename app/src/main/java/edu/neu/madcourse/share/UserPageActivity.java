@@ -1,17 +1,17 @@
 package edu.neu.madcourse.share;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -33,11 +33,11 @@ public class UserPageActivity extends AppCompatActivity {
 
     private ImageView user_profile;
     private TextView username;
+    private TextView location;
     private TextView bio;
     private TextView following;
     private TextView followers;
     private RecyclerView recyclerView;
-
 
     private PostAdapter postAdapter;
     private List<Post> posts;
@@ -60,11 +60,11 @@ public class UserPageActivity extends AppCompatActivity {
 
         user_profile = findViewById(R.id.user_profile);
         username = findViewById(R.id.name);
+        location = findViewById(R.id.location);
         bio = findViewById(R.id.bio);
         following = findViewById(R.id.following);
         followers = findViewById(R.id.followers);
         recyclerView = findViewById(R.id.recycler_view);
-
 
         // Get the USER Id.
         Intent intent = getIntent();
@@ -74,7 +74,6 @@ public class UserPageActivity extends AppCompatActivity {
         userInfo();
         getFollowers();
 
-
         //inflate posts
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -83,7 +82,6 @@ public class UserPageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
 
@@ -91,8 +89,6 @@ public class UserPageActivity extends AppCompatActivity {
         postAdapter = new PostAdapter(getBaseContext(), posts);
         recyclerView.setAdapter(postAdapter);
         getMyPosts();
-
-
     }
 
     private void getMyPosts() {
@@ -150,7 +146,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     }
 
-    private void userInfo(){
+    private void userInfo() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -159,8 +155,22 @@ public class UserPageActivity extends AppCompatActivity {
 
                 User user = snapshot.getValue(User.class);
                 Glide.with(getBaseContext()).load(user.getImageurl()).into(user_profile);
+
                 username.setText(user.getUsername());
-                bio.setText(user.getBio());
+
+                String locationStr = user.getLocation();
+                if (locationStr == null || locationStr.isEmpty()) {
+                    location.setVisibility(View.GONE);
+                } else {
+                    location.setText(locationStr);
+                }
+
+                String bioStr = user.getBio();
+                if (bioStr == null || bioStr.isEmpty()) {
+                    bio.setVisibility(View.GONE);
+                } else {
+                    bio.setText(bioStr);
+                }
             }
 
             @Override
