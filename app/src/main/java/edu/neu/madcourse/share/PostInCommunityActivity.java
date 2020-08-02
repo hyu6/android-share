@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -176,24 +177,36 @@ public class PostInCommunityActivity extends AppCompatActivity {
                         Uri downloadUri = task.getResult();
                         myUrl = downloadUri.toString();
 
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                        // Log.d("MyEmpty", "onComplete: " + title.getText().toString());
 
-                        String postId = reference.push().getKey();
+                        if (TextUtils.isEmpty(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                || TextUtils.isEmpty(content.getText().toString())
+                                || TextUtils.isEmpty(myUrl)
+                                || TextUtils.isEmpty(title.getText().toString())
+                                || TextUtils.isEmpty(communityName)) {
 
-                        final Post newPost = new Post();
-                        newPost.setPostID(postId);
-                        newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        newPost.setPostContent(content.getText().toString());
-                        newPost.setPostIMG(myUrl);
-                        newPost.setTitle(title.getText().toString());
-                        newPost.setCommunity(communityName);
+                            progressDialog.dismiss();
+                            Toast.makeText(PostInCommunityActivity.this, "All Fields are required", Toast.LENGTH_SHORT).show();
+                        } else {
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
-                        reference.child(postId).setValue(newPost);
+                            String postId = reference.push().getKey();
 
-                        progressDialog.dismiss();
+                            final Post newPost = new Post();
+                            newPost.setPostID(postId);
+                            newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            newPost.setPostContent(content.getText().toString());
+                            newPost.setPostIMG(myUrl);
+                            newPost.setTitle(title.getText().toString());
+                            newPost.setCommunity(communityName);
 
-                        startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
-                        finish();
+                            reference.child(postId).setValue(newPost);
+
+                            progressDialog.dismiss();
+
+                            startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
+                            finish();
+                        }
                     } else {
                         Toast.makeText(PostInCommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
@@ -206,6 +219,7 @@ public class PostInCommunityActivity extends AppCompatActivity {
             });
         } else {
             Toast.makeText(this, "No Image Selected!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
         }
     }
 

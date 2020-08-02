@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
@@ -224,24 +225,32 @@ public class PostActivity extends AppCompatActivity {
                         Uri downloadUri = task.getResult();
                         myUrl = downloadUri.toString();
 
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                        if (TextUtils.isEmpty(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                || TextUtils.isEmpty(content.getText().toString())
+                                || TextUtils.isEmpty(myUrl)
+                                || TextUtils.isEmpty(title.getText().toString())) {
+                            progressDialog.dismiss();
+                            Toast.makeText(PostActivity.this, "All Fields are required", Toast.LENGTH_SHORT).show();
+                        } else {
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
-                        String postId = reference.push().getKey();
+                            String postId = reference.push().getKey();
 
-                        final Post newPost = new Post();
-                        newPost.setPostID(postId);
-                        newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        newPost.setPostContent(content.getText().toString());
-                        newPost.setPostIMG(myUrl);
-                        newPost.setTitle(title.getText().toString());
-                        newPost.setCommunity(communitySpinner.getSelectedItem().toString());
+                            final Post newPost = new Post();
+                            newPost.setPostID(postId);
+                            newPost.setAuthorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            newPost.setPostContent(content.getText().toString());
+                            newPost.setPostIMG(myUrl);
+                            newPost.setTitle(title.getText().toString());
+                            newPost.setCommunity(communitySpinner.getSelectedItem().toString());
 
-                        reference.child(postId).setValue(newPost);
+                            reference.child(postId).setValue(newPost);
 
-                        progressDialog.dismiss();
+                            progressDialog.dismiss();
 
-                        startActivity(new Intent(PostActivity.this, MainActivity.class));
-                        finish();
+                            startActivity(new Intent(PostActivity.this, MainActivity.class));
+                            finish();
+                        }
                     } else {
                         Toast.makeText(PostActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
