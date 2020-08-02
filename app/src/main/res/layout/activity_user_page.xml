@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:background="@color/lightBlue"></androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_height="match_parent">
@@ -144,11 +144,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/recycler_view"
                 android:layout_below="@+id/linearLayout" />
         </RelativeLayout>
-    </ScrollView>
-
-
+    </LinearLayout>
 </RelativeLayout>
