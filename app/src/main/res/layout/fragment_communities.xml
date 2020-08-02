@@ -30,15 +30,7 @@
                     android:layout_centerInParent="true"
                     android:textSize="20sp" />
 
-
-
-
             </RelativeLayout>
-
-
-
-
-
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -59,27 +51,23 @@
             android:id="@+id/search"
             android:src="@drawable/ic_search"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/create"
-            android:src="@drawable/ic_post"
+            android:src="@drawable/ic_add"
             android:layout_margin="10dp" />
 
-
     </LinearLayout>
-
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool"
         android:id="@+id/recycler_view"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

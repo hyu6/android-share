@@ -76,7 +76,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/button_background"
             android:id="@+id/subscribe"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/darkBlue"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true" />
 

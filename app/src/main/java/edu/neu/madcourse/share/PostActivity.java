@@ -112,7 +112,7 @@ public class PostActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PostActivity.this, CommunityActivity.class));
+                startActivity(new Intent(PostActivity.this, CreateCommunityActivity.class));
             }
         });
 

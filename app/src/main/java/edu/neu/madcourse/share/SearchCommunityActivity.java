@@ -1,18 +1,17 @@
 package edu.neu.madcourse.share;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,7 +61,7 @@ public class SearchCommunityActivity extends AppCompatActivity {
         communities = new ArrayList<>();
 
         // Add values to the communities ArrayList.
-        getSubscribedCommunities();
+        getAllCommunities();
 
         communityAdapter = new CommunityAdapter(getBaseContext(), communities);
         recyclerView.setAdapter(communityAdapter);
@@ -78,8 +77,6 @@ public class SearchCommunityActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    getSubscribedCommunities();
-                } else if (s.length() == 1 && s.charAt(0) == '*') {
                     getAllCommunities();
                 } else {
                     searchCommunities(s.toString().toLowerCase());
@@ -91,9 +88,6 @@ public class SearchCommunityActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void searchCommunities(String s) {
@@ -116,54 +110,6 @@ public class SearchCommunityActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void getSubscribedCommunities() {
-        final List<String> myCommunities = new ArrayList<>();
-        final String curUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Subscribe")
-                .child(curUserID);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    myCommunities.add(dataSnapshot.getKey());
-                }
-
-                addCommunities(myCommunities);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void addCommunities(final List<String> myCommunities) {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("Communities");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                communities.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Community community = dataSnapshot.getValue(Community.class);
-                    for (String communityId : myCommunities) {
-                        assert community != null;
-                        if (communityId.equals(community.getCommunityId())) {
-                            communities.add(community);
-                        }
-                    }
-                }
-                communityAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

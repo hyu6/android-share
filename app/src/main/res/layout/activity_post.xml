@@ -120,15 +120,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Add Picture Here: "/>
+            android:textSize="16sp"
+            android:text="Image:" />
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_addimage"
+            android:src="@drawable/ic_image"
             android:id="@+id/image_added" />
 
     </LinearLayout>

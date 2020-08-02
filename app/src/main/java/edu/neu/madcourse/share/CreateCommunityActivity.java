@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 import edu.neu.madcourse.share.Model.Community;
 
-public class CommunityActivity extends AppCompatActivity {
+public class CreateCommunityActivity extends AppCompatActivity {
 
     Uri imageUri;
     String myUrl = "";
@@ -47,7 +47,7 @@ public class CommunityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community);
+        setContentView(R.layout.activity_create_community);
 
         close = findViewById(R.id.close);
         image_added = findViewById(R.id.image_added);
@@ -60,7 +60,6 @@ public class CommunityActivity extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CommunityActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -77,7 +76,7 @@ public class CommunityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CropImage.activity()
                         .setAspectRatio(1, 1)
-                        .start(CommunityActivity.this);
+                        .start(CreateCommunityActivity.this);
             }
         });
     }
@@ -134,16 +133,16 @@ public class CommunityActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(CommunityActivity.this, PostActivity.class));
+                        startActivity(new Intent(CreateCommunityActivity.this, PostActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(CommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateCommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CommunityActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCommunityActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -162,7 +161,7 @@ public class CommunityActivity extends AppCompatActivity {
             image_added.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(CommunityActivity.this, MainActivity.class));
+            startActivity(new Intent(CreateCommunityActivity.this, MainActivity.class));
             finish();
         }
     }

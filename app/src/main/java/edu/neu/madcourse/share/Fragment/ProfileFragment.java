@@ -122,7 +122,6 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
         // Set all the info on these pages.
         userInfo();
         getFollowers();
@@ -158,7 +157,6 @@ public class ProfileFragment extends Fragment {
 //            }
 //        });
 
-
         //set my posts on click listener
         my_posts = view.findViewById(R.id.my_posts);
         my_posts.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +166,6 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         //set my posts on click listener
         my_favorites = (LinearLayout) view.findViewById(R.id.my_favorites);
@@ -199,7 +196,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         //set add person
         edit = view.findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +204,6 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(), EditProfileActivity.class));
             }
         });
-
 
         return view;
     }
