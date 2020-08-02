@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already have an account? Log In"
-        android:id="@+id/txt_login"
+        android:id="@+id/login"
         android:layout_marginTop="10dp" />
 
 </LinearLayout>

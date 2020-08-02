@@ -40,12 +40,12 @@ public class PostDetailActivity extends AppCompatActivity {
     String postID;
     private Post mpost;
 
-    private TextView post_title;
-    private TextView post_content;
-    private TextView author_name;
-    private ImageView author_profile;
-    private ImageView post_img;
-    private ImageView image_profile;
+    private TextView postTitle;
+    private TextView postContent;
+    private TextView authorName;
+    private ImageView authorProfile;
+    private ImageView postImage;
+    private ImageView imageProfile;
 
     private ImageView like;
     private ImageView save;
@@ -57,8 +57,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private EditText addComment;
     private TextView post;
 
-    private TextView like_num;
-    private TextView comment_num;
+    private TextView likeNum;
+    private TextView commentNum;
 
 
     @Override
@@ -80,19 +80,19 @@ public class PostDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         postID = intent.getStringExtra("postID");
 
-        post_title = findViewById(R.id.post_title);
-        post_content = findViewById(R.id.post_content);
-        author_profile = findViewById(R.id.author_profile);
-        author_name = findViewById(R.id.username);
-        post_img = findViewById(R.id.post_img);
+        postTitle = findViewById(R.id.post_title);
+        postContent = findViewById(R.id.post_content);
+        authorProfile = findViewById(R.id.author_profile);
+        authorName = findViewById(R.id.username);
+        postImage = findViewById(R.id.post_image);
 
         like = findViewById(R.id.like);
         save = findViewById(R.id.favorite);
 
-        like_num = findViewById(R.id.like_num);
-        comment_num = findViewById(R.id.comment_num);
+        likeNum = findViewById(R.id.like_num);
+        commentNum = findViewById(R.id.comment_num);
 
-        image_profile = findViewById(R.id.image_profile);
+        imageProfile = findViewById(R.id.image_profile);
 
         getLikes(postID, like);
         like.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(postID)
                             .child(firebaseUser.getUid()).removeValue();
                 }
-                countLikes(postID, like_num);
+                countLikes(postID, likeNum);
             }
         });
         getPost();
@@ -154,10 +154,10 @@ public class PostDetailActivity extends AppCompatActivity {
         });
 
         //count likes
-        countLikes(postID, like_num);
+        countLikes(postID, likeNum);
 
         //count comments
-        countComments(postID, comment_num);
+        countComments(postID, commentNum);
 
         getImageProfile();
     }
@@ -225,7 +225,7 @@ public class PostDetailActivity extends AppCompatActivity {
         addComment.setText("");
         closeKeyboard();
         readComments();
-        countComments(postID, comment_num);
+        countComments(postID, commentNum);
     }
 
     private void closeKeyboard() {
@@ -285,10 +285,10 @@ public class PostDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mpost = snapshot.getValue(Post.class);
-                post_title.setText(mpost.getTitle());
-                post_content.setText(mpost.getPostContent());
+                postTitle.setText(mpost.getTitle());
+                postContent.setText(mpost.getPostContent());
                 if (getBaseContext() != null) {
-                    Glide.with(getBaseContext()).load(mpost.getPostIMG()).into(post_img);
+                    Glide.with(getBaseContext()).load(mpost.getPostIMG()).into(postImage);
                 }
                 getAuthorInfo(mpost.getAuthorID());
             }
@@ -308,9 +308,9 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User author = snapshot.getValue(User.class);
                 if (getBaseContext() != null && author.getImageurl() != null) {
-                    Glide.with(getBaseContext()).load(author.getImageurl()).into(author_profile);
+                    Glide.with(getBaseContext()).load(author.getImageurl()).into(authorProfile);
                 }
-                author_name.setText(author.getUsername());
+                authorName.setText(author.getUsername());
             }
 
             @Override
@@ -352,7 +352,7 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 if (getBaseContext() != null && user.getImageurl() != null) {
-                    Glide.with(getBaseContext()).load(user.getImageurl()).into(image_profile);
+                    Glide.with(getBaseContext()).load(user.getImageurl()).into(imageProfile);
                 }
             }
 

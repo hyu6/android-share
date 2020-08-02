@@ -31,7 +31,7 @@ import edu.neu.madcourse.share.Model.User;
 public class UserPageActivity extends AppCompatActivity {
     private String userId;
 
-    private ImageView user_profile;
+    private ImageView userProfile;
     private TextView username;
     private TextView location;
     private TextView bio;
@@ -58,7 +58,7 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        user_profile = findViewById(R.id.user_profile);
+        userProfile = findViewById(R.id.user_profile);
         username = findViewById(R.id.name);
         location = findViewById(R.id.location);
         bio = findViewById(R.id.bio);
@@ -154,7 +154,7 @@ public class UserPageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 User user = snapshot.getValue(User.class);
-                Glide.with(getBaseContext()).load(user.getImageurl()).into(user_profile);
+                Glide.with(getBaseContext()).load(user.getImageurl()).into(userProfile);
 
                 username.setText(user.getUsername());
 

@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText username, fullname, email, password;
     Button register;
-    TextView txt_login;
+    TextView login;
 
     // Firebase auth component.
     FirebaseAuth auth;
@@ -45,13 +45,13 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
-        txt_login = findViewById(R.id.txt_login);
+        login = findViewById(R.id.login);
 
         // Firebase auth instance.
         auth = FirebaseAuth.getInstance();
 
         // Login onClicker listener.
-        txt_login.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));

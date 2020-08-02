@@ -29,8 +29,9 @@ import edu.neu.madcourse.share.Model.User;
 import edu.neu.madcourse.share.R;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
-    public Context context;
-    public List<Community> communities;
+
+    private Context context;
+    private List<Community> communities;
 
     private FirebaseUser firebaseUser;
 
@@ -124,7 +125,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             super(itemView);
 
             name = itemView.findViewById(R.id.community_title);
-            image = itemView.findViewById(R.id.community_image);
+            image = itemView.findViewById(R.id.community_profile);
             creator = itemView.findViewById(R.id.creator);
             subscribe = itemView.findViewById(R.id.subscribe);
         }

@@ -38,7 +38,7 @@ public class PostInCommunityActivity extends AppCompatActivity {
 
     Uri imageUri;
     String myUrl = "";
-    String communityID = "";
+    String communityId = "";
     String communityName = "";
     StorageTask uploadTask;
     StorageReference storageReference;
@@ -56,11 +56,11 @@ public class PostInCommunityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_in_community);
 
         Intent intent = getIntent();
-        communityID = intent.getStringExtra("communityID");
+        communityId = intent.getStringExtra("communityID");
 
 
         close = findViewById(R.id.close);
-        image_added = findViewById(R.id.image_added);
+        image_added = findViewById(R.id.added_image);
         post = findViewById(R.id.post);
         title = findViewById(R.id.Title);
         content = findViewById(R.id.content);
@@ -101,7 +101,7 @@ public class PostInCommunityActivity extends AppCompatActivity {
 
     private void setIllustration() {
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities").child(communityID);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Communities").child(communityId);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

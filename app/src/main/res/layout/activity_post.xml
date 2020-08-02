@@ -130,7 +130,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_image"
-            android:id="@+id/image_added" />
+            android:id="@+id/added_image" />
 
     </LinearLayout>
 </LinearLayout>

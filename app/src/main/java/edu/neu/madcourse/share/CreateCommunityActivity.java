@@ -39,7 +39,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
     StorageTask uploadTask;
     StorageReference storageReference;
 
-    ImageView close, image_added;
+    ImageView close, addedImage;
     TextView create;
     EditText name;
     EditText description;
@@ -50,7 +50,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_community);
 
         close = findViewById(R.id.close);
-        image_added = findViewById(R.id.image_added);
+        addedImage = findViewById(R.id.added_image);
         create = findViewById(R.id.create);
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
@@ -71,7 +71,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
             }
         });
 
-        image_added.setOnClickListener(new View.OnClickListener() {
+        addedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CropImage.activity()
@@ -158,7 +158,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
-            image_added.setImageURI(imageUri);
+            addedImage.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(CreateCommunityActivity.this, MainActivity.class));

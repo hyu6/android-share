@@ -28,8 +28,9 @@ import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-    public Context context;
-    public List<Post> posts;
+
+    private Context context;
+    private List<Post> posts;
 
     private FirebaseUser firebaseUser;
 

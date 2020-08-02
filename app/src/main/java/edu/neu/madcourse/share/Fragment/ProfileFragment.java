@@ -36,12 +36,10 @@ import edu.neu.madcourse.share.R;
 import edu.neu.madcourse.share.SettingsActivity;
 
 public class ProfileFragment extends Fragment {
-
-
     ImageView edit;
-    ImageView image_profile;
+    ImageView imageProfile;
     TextView followers, following, fullname, bio, username, location;
-    Button edit_profile;
+    Button editProfile;
     LinearLayout selfLayout;
 
     FirebaseUser firebaseUser;
@@ -65,7 +63,7 @@ public class ProfileFragment extends Fragment {
         isSelf = prefs.getBoolean("isself", false);
 
 
-        image_profile = view.findViewById(R.id.image_profile);
+        imageProfile = view.findViewById(R.id.image_profile);
         followers = view.findViewById(R.id.followers);
         following = view.findViewById(R.id.followering);
         fullname = view.findViewById(R.id.fullname);
@@ -233,7 +231,7 @@ public class ProfileFragment extends Fragment {
 
                 User user = snapshot.getValue(User.class);
 
-                Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
+                Glide.with(getContext()).load(user.getImageurl()).into(imageProfile);
                 username.setText(user.getUsername());
                 fullname.setText(user.getFullname());
                 bio.setText(user.getBio());
@@ -256,9 +254,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(profileid).exists()) {
-                    edit_profile.setText("following");
+                    editProfile.setText("following");
                 } else {
-                    edit_profile.setText("follow");
+                    editProfile.setText("follow");
                 }
             }
 

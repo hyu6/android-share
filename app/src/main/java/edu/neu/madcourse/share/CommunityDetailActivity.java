@@ -35,9 +35,9 @@ public class CommunityDetailActivity extends AppCompatActivity {
     String communityId;
     String creatorId;
     String communityName;
-    TextView description, creator_name;
+    TextView description, creatorName;
     Button subscribe;
-    ImageView community_image, creator_profile;
+    ImageView communityProfile, creatorProfile;
     List<Post> posts;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
@@ -66,10 +66,10 @@ public class CommunityDetailActivity extends AppCompatActivity {
         creatorId = intent.getStringExtra("creatorId");
 
         // Find the component.
-        community_image = findViewById(R.id.community_image);
+        communityProfile = findViewById(R.id.community_profile);
         description = findViewById(R.id.description);
-        creator_name = findViewById(R.id.creator_name);
-        creator_profile = findViewById(R.id.creator_profile);
+        creatorName = findViewById(R.id.creator_name);
+        creatorProfile = findViewById(R.id.creator_profile);
 
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference("Users").child(creatorId);
@@ -79,8 +79,8 @@ public class CommunityDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                creator_name.setText(user.getUsername());
-                Glide.with(getBaseContext()).load(user.getImageurl()).into(creator_profile);
+                creatorName.setText(user.getUsername());
+                Glide.with(getBaseContext()).load(user.getImageurl()).into(creatorProfile);
             }
 
             @Override
@@ -206,7 +206,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                 Community community = snapshot.getValue(Community.class);
                 communityName = community.getName();
                 getSupportActionBar().setTitle(communityName);
-                Glide.with(getBaseContext()).load(community.getImage()).into(community_image);
+                Glide.with(getBaseContext()).load(community.getImage()).into(communityProfile);
                 description.setText(community.getDescription());
             }
 

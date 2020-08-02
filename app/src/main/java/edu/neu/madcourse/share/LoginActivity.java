@@ -1,8 +1,5 @@
 package edu.neu.madcourse.share;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,13 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 public class LoginActivity extends AppCompatActivity {
 
     EditText email, password;
     Button login;
-    TextView txt_signup;
+    TextView signup;
 
     FirebaseAuth auth;
 
@@ -41,11 +39,11 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         login = findViewById(R.id.login);
         password = findViewById(R.id.password);
-        txt_signup = findViewById(R.id.txt_signup);
+        signup = findViewById(R.id.signup);
 
         auth = FirebaseAuth.getInstance();
 
-        txt_signup.setOnClickListener(new View.OnClickListener() {
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
