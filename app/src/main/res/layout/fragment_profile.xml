@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/top_bar"
-                android:padding="10dp">
+                android:layout_marginTop="20dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="60dp"
