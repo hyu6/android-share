@@ -72,9 +72,14 @@ public class CommunityActivity extends AppCompatActivity {
             }
         });
 
-        CropImage.activity()
-                .setAspectRatio(1, 1)
-                .start(CommunityActivity.this);
+        image_added.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity()
+                        .setAspectRatio(1, 1)
+                        .start(CommunityActivity.this);
+            }
+        });
     }
 
     private String getFileExtension(Uri uri) {

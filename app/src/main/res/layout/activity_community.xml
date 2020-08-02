@@ -38,7 +38,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/darkBlue" />
 
             </RelativeLayout>
 
@@ -52,13 +52,20 @@
         android:padding="8dp"
         android:orientation="vertical">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:text="Add Community Profile: "/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerInside"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_addimage"
             android:id="@+id/image_added" />
+
 
         <EditText
             android:layout_width="match_parent"
