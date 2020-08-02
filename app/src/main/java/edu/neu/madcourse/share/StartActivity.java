@@ -1,12 +1,11 @@
 package edu.neu.madcourse.share;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +25,6 @@ public class StartActivity extends AppCompatActivity {
 
         // Redirect if user is not null.
         if (firebaseUser != null) {
-            Log.d("Sign", "onStart: " + firebaseUser);
             startActivity(new Intent(StartActivity.this, MainActivity.class));
             finish();
         }
