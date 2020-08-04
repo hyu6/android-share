@@ -56,7 +56,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private final int REQUEST_LOCATION_PERMISSION = 1;
 
     ImageView close, imageProfile;
-    TextView save, tvChange, update, location;
+    TextView save, update, location;
     MaterialEditText fullname, username, bio;
 
     FirebaseUser firebaseUser;
@@ -76,7 +76,6 @@ public class EditProfileActivity extends AppCompatActivity {
         close = findViewById(R.id.close);
         imageProfile = findViewById(R.id.image_profile);
         save = findViewById(R.id.save);
-        tvChange = findViewById(R.id.tv_change);
         fullname = findViewById(R.id.fullname);
         username = findViewById(R.id.username);
         bio = findViewById(R.id.bio);
@@ -113,7 +112,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        tvChange.setOnClickListener(new View.OnClickListener() {
+        imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CropImage.activity()

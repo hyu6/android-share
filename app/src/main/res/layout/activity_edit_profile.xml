@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SAVE"
+                    android:text="Done"
                     android:layout_marginRight="10dp"
                     android:id="@+id/save"
                     android:textSize="16sp"
@@ -66,22 +66,32 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center"
-            android:id="@+id/image_profile"
-            android:layout_margin="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Photo"
-            android:layout_gravity="center"
-            android:id="@+id/tv_change"
-            android:textColor="@color/darkBlue"
-            android:textSize="16sp" />
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Avatar"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center"
+                android:id="@+id/image_profile"/>
+
+        </LinearLayout>
+
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
