@@ -90,24 +90,46 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             }
         });
 
-        holder.subscribe.setOnClickListener(new View.OnClickListener() {
+        holder.creator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.subscribe.getText().toString().equals("Subscribe")) {
-                    FirebaseDatabase.getInstance().getReference()
-                            .child("Subscribe")
-                            .child(firebaseUser.getUid())
-                            .child(community.getCommunityId())
-                            .setValue(true);
-                } else {
-                    FirebaseDatabase.getInstance().getReference()
-                            .child("Subscribe")
-                            .child(firebaseUser.getUid())
-                            .child(community.getCommunityId())
-                            .removeValue();
-                }
+                Intent intent = new Intent(context, CommunityDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("communityId", community.getCommunityId());
+                intent.putExtra("creatorId", community.getCreator());
+                context.startActivity(intent);
             }
         });
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommunityDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("communityId", community.getCommunityId());
+                intent.putExtra("creatorId", community.getCreator());
+                context.startActivity(intent);
+            }
+        });
+
+//        holder.subscribe.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (holder.subscribe.getText().toString().equals("Subscribe")) {
+//                    FirebaseDatabase.getInstance().getReference()
+//                            .child("Subscribe")
+//                            .child(firebaseUser.getUid())
+//                            .child(community.getCommunityId())
+//                            .setValue(true);
+//                } else {
+//                    FirebaseDatabase.getInstance().getReference()
+//                            .child("Subscribe")
+//                            .child(firebaseUser.getUid())
+//                            .child(community.getCommunityId())
+//                            .removeValue();
+//                }
+//            }
+//        });
 
     }
 
