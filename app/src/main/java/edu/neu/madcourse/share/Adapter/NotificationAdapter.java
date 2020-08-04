@@ -1,6 +1,7 @@
 package edu.neu.madcourse.share.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.Notification;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
+import edu.neu.madcourse.share.PostDetailActivity;
 import edu.neu.madcourse.share.R;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
@@ -59,28 +61,33 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.postImage.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (notification.isPost()) {
-                    SharedPreferences.Editor editor = mContext
-                            .getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                    editor.putString("postid", notification.getPostId());
-                    editor.apply();
+                Intent intent = new Intent(mContext, PostDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("postID", notification.getPostId());
+                mContext.startActivity(intent);
+            }
+        });
 
-//                    ((FragmentActivity) mContext).getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .replace(R.id.fragment_container, new PostDetailFragment());
-                } else {
-                    SharedPreferences.Editor editor = mContext
-                            .getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                    editor.putString("profileid", notification.getUserId());
-                    editor.apply();
+        holder.imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PostDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("postID", notification.getPostId());
+                mContext.startActivity(intent);
+            }
+        });
 
-                    ((FragmentActivity) mContext).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, new ProfileFragment());
-                }
+        holder.text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PostDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("postID", notification.getPostId());
+                mContext.startActivity(intent);
             }
         });
     }

@@ -19,14 +19,14 @@
         android:layout_centerVertical="true">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/comment"
             android:maxLines="5" />
