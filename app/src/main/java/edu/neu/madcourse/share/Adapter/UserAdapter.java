@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -96,7 +97,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         viewHolder.btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (viewHolder.btnFollow.getText().toString().equals("follow")) {
+                if (viewHolder.btnFollow.getTag().equals("not followed")) {
                     FirebaseDatabase.getInstance().getReference()
                             .child("Follow")
                             .child(firebaseUser.getUid())
@@ -152,7 +153,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public TextView username;
         public TextView fullname;
         public CircleImageView imageProfile;
-        public Button btnFollow;
+//        public Button btnFollow;
+        public ImageView btnFollow;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -164,7 +166,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
-    private void isFollowing(final String userid, final Button button) {
+    private void isFollowing(final String userid, final ImageView button) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Follow")
                 .child(firebaseUser.getUid())
@@ -173,9 +175,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(userid).exists()) {
-                    button.setText("following");
+//                    button.setText("following");
+                    button.setImageResource(R.drawable.ic_person);
+                    button.setTag("followed");
+
                 } else {
-                    button.setText("follow");
+//                    button.setText("follow");
+                    button.setImageResource(R.drawable.ic_addperson);
+                    button.setTag("not followed");
                 }
             }
 
