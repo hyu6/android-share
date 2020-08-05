@@ -2,7 +2,6 @@ package edu.neu.madcourse.share.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import edu.neu.madcourse.share.Fragment.ProfileFragment;
 import edu.neu.madcourse.share.Model.Notification;
 import edu.neu.madcourse.share.Model.Post;
 import edu.neu.madcourse.share.Model.User;
@@ -54,13 +51,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         getUserInfo(holder.imageProfile, holder.username, notification.getUserId());
 
-        if (notification.isPost()) {
+        if (notification.getIsPost()) {
             holder.postTitle.setVisibility(View.VISIBLE);
             getPostTitle(holder.postTitle, notification.getPostId());
         } else {
             holder.postTitle.setVisibility(View.GONE);
+            return;
         }
-
 
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,10 +141,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 if (post != null) {
                     title = post.getTitle();
                 }
-                if (title != null && title.length() > 10){
-                    textView.setText("\"" + title.substring(0, 10) +"..." +"\"");
-                }else if(title != null){
-                    textView.setText("\""+title+"\"");
+                if (title != null && title.length() > 10) {
+                    textView.setText("\"" + title.substring(0, 10) + "..." + "\"");
+                } else if (title != null) {
+                    textView.setText("\"" + title + "\"");
                 }
 
             }

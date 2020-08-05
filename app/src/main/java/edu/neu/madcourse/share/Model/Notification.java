@@ -44,7 +44,11 @@ public class Notification {
         return isPost;
     }
 
-    public void setPost(boolean post) {
+    public boolean getIsPost() {
+        return isPost;
+    }
+
+    public void setIsPost(boolean post) {
         isPost = post;
     }
 }
