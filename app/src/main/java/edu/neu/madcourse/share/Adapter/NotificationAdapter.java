@@ -55,11 +55,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         getUserInfo(holder.imageProfile, holder.username, notification.getUserId());
 
         if (notification.isPost()) {
-            holder.postImage.setVisibility(View.VISIBLE);
-            getPostImage(holder.postImage, notification.getPostId());
+            holder.postTitle.setVisibility(View.VISIBLE);
+            getPostTitle(holder.postTitle, notification.getPostId());
         } else {
-            holder.postImage.setVisibility(View.GONE);
+            holder.postTitle.setVisibility(View.GONE);
         }
+
 
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,14 +100,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView imageProfile, postImage;
-        public TextView username, text;
+        public ImageView imageProfile;
+        public TextView username, text, postTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageProfile = itemView.findViewById(R.id.image_profile);
-            postImage = itemView.findViewById(R.id.post_image);
+            postTitle = itemView.findViewById(R.id.post_title);
             username = itemView.findViewById(R.id.username);
             text = itemView.findViewById(R.id.comment);
         }
@@ -131,7 +132,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         });
     }
 
-    private void getPostImage(final ImageView imageView, String postId) {
+    private void getPostTitle(final TextView textView, String postId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts")
                 .child(postId);
 
@@ -139,7 +140,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Post post = snapshot.getValue(Post.class);
-                Glide.with(mContext).load(post.getPostIMG()).into(imageView);
+                String title = "";
+                if (post != null) {
+                    title = post.getTitle();
+                }
+                if (title != null && title.length() > 10){
+                    textView.setText("\"" + title.substring(0, 10) +"..." +"\"");
+                }else if(title != null){
+                    textView.setText("\""+title+"\"");
+                }
+
             }
 
             @Override
