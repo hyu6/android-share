@@ -36,15 +36,6 @@
 
     </LinearLayout>
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:background="@drawable/button_background"-->
-<!--        android:id="@+id/btn_follow"-->
-<!--        android:textColor="#2196F3"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:visibility="gone" />-->
 
     <ImageView
         android:layout_width="50dp"
