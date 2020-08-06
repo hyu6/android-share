@@ -77,7 +77,6 @@ public class PostInCommunityActivity extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
                 finish();
             }
         });
