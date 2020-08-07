@@ -176,8 +176,6 @@ public class PostInCommunityActivity extends AppCompatActivity {
                         Uri downloadUri = task.getResult();
                         myUrl = downloadUri.toString();
 
-                        // Log.d("MyEmpty", "onComplete: " + title.getText().toString());
-
                         if (TextUtils.isEmpty(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 || TextUtils.isEmpty(content.getText().toString())
                                 || TextUtils.isEmpty(myUrl)
@@ -203,7 +201,6 @@ public class PostInCommunityActivity extends AppCompatActivity {
 
                             progressDialog.dismiss();
 
-                            startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
                             finish();
                         }
                     } else {
@@ -232,8 +229,7 @@ public class PostInCommunityActivity extends AppCompatActivity {
 
             image_added.setImageURI(imageUri);
         } else {
-            Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(PostInCommunityActivity.this, MainActivity.class));
+//            Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

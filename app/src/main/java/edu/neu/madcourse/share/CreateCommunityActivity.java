@@ -160,8 +160,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
 
             addedImage.setImageURI(imageUri);
         } else {
-            Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(CreateCommunityActivity.this, MainActivity.class));
+//            Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

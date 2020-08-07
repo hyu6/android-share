@@ -247,7 +247,6 @@ public class PostActivity extends AppCompatActivity {
 
                             progressDialog.dismiss();
 
-                            startActivity(new Intent(PostActivity.this, MainActivity.class));
                             finish();
                         }
                     } else {
@@ -275,8 +274,7 @@ public class PostActivity extends AppCompatActivity {
 
             addedImage.setImageURI(imageUri);
         } else {
-            Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(PostActivity.this, MainActivity.class));
+//            Toast.makeText(this, "Something's gone wrong!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
