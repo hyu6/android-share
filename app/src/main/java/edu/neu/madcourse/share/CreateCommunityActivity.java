@@ -133,7 +133,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(CreateCommunityActivity.this, PostActivity.class));
+//                        startActivity(new Intent(CreateCommunityActivity.this, PostActivity.class));
                         finish();
                     } else {
                         Toast.makeText(CreateCommunityActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
