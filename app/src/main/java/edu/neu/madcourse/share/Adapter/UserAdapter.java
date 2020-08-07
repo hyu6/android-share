@@ -71,23 +71,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (isFragment) {
-//                    SharedPreferences.Editor editor =
-//                            mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-//                    editor.putString("profileid", user.getId());
-//                    editor.putBoolean("isself", false);
-//                    editor.apply();
-//
-//                    ((FragmentActivity) mContext).getSupportFragmentManager()
-//                            .beginTransaction().replace(R.id.fragment_container,
-//                            new ProfileFragment()).commit();
-//                } else {
-//                    Intent intent = new Intent(mContext, MainActivity.class);
-//                    intent.putExtra("publisherid", user.getId());
-//                    intent.putExtra("isself", false);
-//                    mContext.startActivity(intent);
-//                }
-
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 intent.putExtra("userId", user.getId());
                 mContext.startActivity(intent);

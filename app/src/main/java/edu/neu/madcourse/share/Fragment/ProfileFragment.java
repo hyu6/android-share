@@ -123,37 +123,7 @@ public class ProfileFragment extends Fragment {
         // Set all the info on these pages.
         userInfo();
         getFollowers();
-//        getPosts();
-//
-//        if (profileid.equals(firebaseUser.getUid())) {
-//            edit_profile.setText("Edit Profile");
-//        } else {
-//            checkFollow();
-////            my_photos.setVisibility(View.GONE);
-//        }
-//
-//        edit_profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String button = edit_profile.getText().toString();
-//
-//                if (button.equals("Edit Profile")) {
-//                    startActivity(new Intent(getContext(), EditProfileActivity.class));
-//                } else if (button.equals("follow")) {
-//                    FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
-//                            .child("following").child(profileid).setValue(true);
-//                    FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
-//                            .child("followers").child(firebaseUser.getUid()).setValue(true);
-//
-//                    addNotifications();
-//                } else if (button.equals("following")) {
-//                    FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
-//                            .child("following").child(profileid).removeValue();
-//                    FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
-//                            .child("followers").child(firebaseUser.getUid()).removeValue();
-//                }
-//            }
-//        });
+
 
         //set my posts on click listener
         myPostsLayout = view.findViewById(R.id.my_posts);
