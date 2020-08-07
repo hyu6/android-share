@@ -186,6 +186,8 @@ public class CommunityDetailActivity extends AppCompatActivity {
                         posts.add(post);
                     }
                 }
+
+                postAdapter.notifyDataSetChanged();
             }
 
             @Override
