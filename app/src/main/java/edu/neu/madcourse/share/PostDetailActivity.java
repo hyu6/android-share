@@ -94,6 +94,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
         imageProfile = findViewById(R.id.image_profile);
 
+        getPost();
+
         getLikes(postID, like);
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +103,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 if (like.getTag().equals("like")) {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(postID)
                             .child(firebaseUser.getUid()).setValue(true);
-                    addNotifications(mpost.getAuthorID(), mpost.getPostID());
+                    addLikeNotifications();
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(postID)
                             .child(firebaseUser.getUid()).removeValue();
@@ -109,7 +111,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 countLikes(postID, likeNum);
             }
         });
-        getPost();
+
 
         //get comment
         recyclerView = findViewById(R.id.recycler_view);
@@ -221,7 +223,7 @@ public class PostDetailActivity extends AppCompatActivity {
         hashMap.put("publisher", firebaseUser.getUid());
 
         reference.push().setValue(hashMap);
-        addNotifications();
+        addCommentNotifications();
         addComment.setText("");
         closeKeyboard();
         readComments();
@@ -364,21 +366,33 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     // like
-    private void addNotifications(String userId, String postId) {
+//    String userId, String postId
+    private void addLikeNotifications() {
+//        DatabaseReference reference = FirebaseDatabase.getInstance()
+//                .getReference("Notifications").child(userId);
+//
+//        HashMap<String, Object> hashMap = new HashMap<>();
+//        hashMap.put("userId", firebaseUser.getUid());
+//        hashMap.put("text", "liked your post");
+//        hashMap.put("postId", postId);
+//        hashMap.put("isPost", true);
+//
+//        reference.push().setValue(hashMap);
+
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("Notifications").child(userId);
+                .getReference("Notifications").child(mpost.getAuthorID());
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("userId", userId);
+        hashMap.put("userId", firebaseUser.getUid());
         hashMap.put("text", "liked your post");
-        hashMap.put("postId", postId);
+        hashMap.put("postId", mpost.getPostID());
         hashMap.put("isPost", true);
 
         reference.push().setValue(hashMap);
     }
 
     // comment
-    private void addNotifications() {
+    private void addCommentNotifications() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Notifications").child(mpost.getAuthorID());
 
